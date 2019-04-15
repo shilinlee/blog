@@ -3,19 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>flask-celery的试用新得 | shilinlee&#39;s blog</title>
+  <title>Celery的使用心得 | shilinlee&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="flask-celery介绍">
+  <meta name="description" content="[TOC] 本文的代码托管在这里 Celery介绍Celery 是一个由 Python 编写的简单、灵活、可靠的用来处理大量信息的分布式系统，它同时提供操作和维护分布式系统所需的工具。Celery是一个分布式队列的管理工具。 快速入门Brokers在这里是指任务队列。brokers就是生产者和消费者存放、拿取产品的地方(队列)。 Result Stores / backend结果储存的地方。 常见">
 <meta property="og:type" content="article">
-<meta property="og:title" content="flask-celery的试用新得">
+<meta property="og:title" content="Celery的使用心得">
 <meta property="og:url" content="http://yoursite.com/2019/04/11/flask_celery_使用/index.html">
 <meta property="og:site_name" content="shilinlee&#39;s blog">
-<meta property="og:description" content="flask-celery介绍">
+<meta property="og:description" content="[TOC] 本文的代码托管在这里 Celery介绍Celery 是一个由 Python 编写的简单、灵活、可靠的用来处理大量信息的分布式系统，它同时提供操作和维护分布式系统所需的工具。Celery是一个分布式队列的管理工具。 快速入门Brokers在这里是指任务队列。brokers就是生产者和消费者存放、拿取产品的地方(队列)。 Result Stores / backend结果储存的地方。 常见">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-11T07:46:55.982Z">
+<meta property="og:updated_time" content="2019-04-15T12:07:07.742Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="flask-celery的试用新得">
-<meta name="twitter:description" content="flask-celery介绍">
+<meta name="twitter:title" content="Celery的使用心得">
+<meta name="twitter:description" content="[TOC] 本文的代码托管在这里 Celery介绍Celery 是一个由 Python 编写的简单、灵活、可靠的用来处理大量信息的分布式系统，它同时提供操作和维护分布式系统所需的工具。Celery是一个分布式队列的管理工具。 快速入门Brokers在这里是指任务队列。brokers就是生产者和消费者存放、拿取产品的地方(队列)。 Result Stores / backend结果储存的地方。 常见">
   
     <link rel="alternate" href="/atom.xml" title="shilinlee&#39;s blog" type="application/atom+xml">
   
@@ -82,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      flask-celery的试用新得
+      Celery的使用心得
     </h1>
   
 
@@ -92,11 +92,28 @@
       
         <!-- Table of Contents -->
         
-        <h3 id="flask-celery介绍"><a href="#flask-celery介绍" class="headerlink" title="flask-celery介绍"></a>flask-celery介绍</h3>
+        <p>[TOC]</p>
+<p>本文的代码托管在<a href="https://github.com/shilinlee/code-note/tree/master/python/celery_demo" target="_blank" rel="noopener">这里</a></p>
+<h3 id="Celery介绍"><a href="#Celery介绍" class="headerlink" title="Celery介绍"></a>Celery介绍</h3><p>Celery 是一个由 Python 编写的简单、灵活、可靠的用来处理大量信息的分布式系统，它同时提供操作和维护分布式系统所需的工具。Celery是一个分布式队列的管理工具。</p>
+<h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><h4 id="Brokers"><a href="#Brokers" class="headerlink" title="Brokers"></a>Brokers</h4><p>在这里是指任务队列。brokers就是生产者和消费者存放、拿取产品的地方(队列)。</p>
+<h4 id="Result-Stores-backend"><a href="#Result-Stores-backend" class="headerlink" title="Result Stores / backend"></a>Result Stores / backend</h4><p>结果储存的地方。</p>
+<p>常见的 backend 有 redis、Memcached, 甚至常用的数据都可以。</p>
+<h4 id="Workers"><a href="#Workers" class="headerlink" title="Workers"></a>Workers</h4><p>就是 Celery 中的工作者，类似与生产/消费模型中的消费者，其从队列中取出任务并执行。</p>
+<h4 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h4><p>就是我们想在队列中进行的任务咯，一般由用户、触发器或其他操作将任务入队，然后交由 workers 进行处理。</p>
+<h4 id="一个简单的用法"><a href="#一个简单的用法" class="headerlink" title="一个简单的用法"></a>一个简单的用法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># task.py</span><br><span class="line">from flask import Flask</span><br><span class="line">from flask_celery_api import make_celery</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">flask_app = Flask(__name__)</span><br><span class="line">flask_app.config.update(</span><br><span class="line">    CELERY_BROKER_URL=&apos;redis://localhost:6379&apos;,</span><br><span class="line">    CELERY_RESULT_BACKEND=&apos;redis://localhost:6379&apos;</span><br><span class="line">)</span><br><span class="line">celery = make_celery(flask_app)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@celery.task()</span><br><span class="line">def add_together(a, b):</span><br><span class="line">    print(a+b)</span><br><span class="line">    return a + b</span><br></pre></td></tr></table></figure>
+<p>以上代码就完成了brokers、backend、task的准备了。下面可以运行worker了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ celery -A task worker --loglevel=info</span><br></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> -------------- celery@shilinleedeMBP v4.3.0 (rhubarb)</span><br><span class="line">---- **** ----- </span><br><span class="line">--- * ***  * -- Darwin-17.7.0-x86_64-i386-64bit 2019-04-15 19:28:57</span><br><span class="line">-- * - **** --- </span><br><span class="line">- ** ---------- [config]</span><br><span class="line">- ** ---------- .&gt; app:         task:0x10f63c940</span><br><span class="line">- ** ---------- .&gt; transport:   redis://localhost:6379//</span><br><span class="line">- ** ---------- .&gt; results:     redis://localhost:6379/</span><br><span class="line">- *** --- * --- .&gt; concurrency: 8 (prefork)</span><br><span class="line">-- ******* ---- .&gt; task events: OFF (enable -E to monitor tasks in this worker)</span><br><span class="line">--- ***** ----- </span><br><span class="line"> -------------- [queues]</span><br><span class="line">                .&gt; celery           exchange=celery(direct) key=celery</span><br></pre></td></tr></table></figure>
+<p>worker此时相当于待命状态。</p>
+<p>最后一步，就是触发任务啦，最简单方式就是再写一个脚本然后调用那个被装饰成 task 的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># excute.py</span><br><span class="line">from task import add_together</span><br><span class="line"></span><br><span class="line">result = add_together.delay(10, 20)</span><br><span class="line">print(result.wait())</span><br></pre></td></tr></table></figure>
+<p>运行此脚本即可。一个简单的 celery 应用就完成啦。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/flask_celery_使用/" data-id="cjuccnsuz0000t83rnd8ddmen" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2019/04/11/flask_celery_使用/" data-id="cjuibehpe0000gn3rstlqkofd" class="article-share-link">分享</a>
       
       
       
@@ -177,7 +194,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#flask-celery介绍"><span class="toc-number">1.</span> <span class="toc-text">flask-celery介绍</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Celery介绍"><span class="toc-number">1.</span> <span class="toc-text">Celery介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速入门"><span class="toc-number">2.</span> <span class="toc-text">快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Brokers"><span class="toc-number">2.1.</span> <span class="toc-text">Brokers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Result-Stores-backend"><span class="toc-number">2.2.</span> <span class="toc-text">Result Stores / backend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Workers"><span class="toc-number">2.3.</span> <span class="toc-text">Workers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tasks"><span class="toc-number">2.4.</span> <span class="toc-text">Tasks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一个简单的用法"><span class="toc-number">2.5.</span> <span class="toc-text">一个简单的用法</span></a></li></ol></li></ol>
           </div>
       </div>
     </div>
