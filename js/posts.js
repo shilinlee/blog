@@ -1,1 +1,1 @@
-[{"title":"Celery的使用心得","date":"2019.04.11","uri":"2019/04/11/flask_celery_使用/","excerpt":""}]
+[{"title":"新文章","date":"2019.05.30","uri":"2019/05/30/新文章/","excerpt":""},{"title":"Celery的使用心得","date":"2019.04.11","uri":"2019/04/11/flask_celery_使用/","excerpt":""}]
