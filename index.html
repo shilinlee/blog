@@ -66,6 +66,364 @@
       <div class="outer">
         <section id="main">
   
+    <article id="hadoop-大数据处理框架Hadoop的学习" class="article article-type-hadoop" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/22/大数据处理框架Hadoop的学习/" class="article-date">
+  <time datetime="2019-06-22T05:56:58.000Z" itemprop="datePublished">2019-06-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/22/大数据处理框架Hadoop的学习/">大数据处理框架Hadoop的学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="Hadoop简介"><a href="#Hadoop简介" class="headerlink" title="Hadoop简介"></a>Hadoop简介</h1><ul>
+<li>Hadoop是基于Java语言开发的，具有很好的跨平台特性，并且可以部署在廉价的计算机集群中</li>
+<li>Hadoop的核心是分布式文件系统HDFS（Hadoop Distributed File System）和MapReduce。</li>
+<li>经过多年发展，Hadoop项目已经变得非常成熟和完善，包括Common、Avro、Zookeeper、HDFS、MapReduce、HBase、Hive、Chukwa、Pig等子项目，其中，HDFS和MapReduce是Hadoop的两大核心组件。</li>
+</ul>
+<h1 id="Hadoop现状"><a href="#Hadoop现状" class="headerlink" title="Hadoop现状"></a>Hadoop现状</h1><ul>
+<li>应用架构</li>
+</ul>
+<p><img src="/images/image-20190622140440199.png" alt="Hadoop应用架构"></p>
+<ul>
+<li><p>项目结构</p>
+<p>Hadoop的项目结构不断丰富发展，已经形成一个丰富的Hadoop生态系统</p>
+<p><img src="/images/image-20190622141152579.png" alt="Hadoop project structure"></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>组件</strong></th>
+<th style="text-align:left"><strong>功能</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HDFS</td>
+<td style="text-align:left">分布式文件系统</td>
+</tr>
+<tr>
+<td>MapReduce</td>
+<td style="text-align:left">分布式并行编程模型</td>
+</tr>
+<tr>
+<td>YARN</td>
+<td style="text-align:left">资源管理和调度器</td>
+</tr>
+<tr>
+<td>Tez</td>
+<td style="text-align:left">运行在YARN之上的下一代Hadoop查询处理框架</td>
+</tr>
+<tr>
+<td>Hive</td>
+<td style="text-align:left">Hadoop上的数据仓库</td>
+</tr>
+<tr>
+<td>HBase</td>
+<td style="text-align:left">Hadoop上的非关系型的分布式数据库</td>
+</tr>
+<tr>
+<td>Pig</td>
+<td style="text-align:left">一个基于Hadoop的大规模数据分析平台，提供类似SQL的查询语言Pig Latin</td>
+</tr>
+<tr>
+<td>Sqoop</td>
+<td style="text-align:left">用于在Hadoop与传统数据库之间进行数据传递</td>
+</tr>
+<tr>
+<td>Oozie</td>
+<td style="text-align:left">Hadoop上的工作流管理系统</td>
+</tr>
+<tr>
+<td>Zookeeper</td>
+<td style="text-align:left">提供分布式协调一致性服务</td>
+</tr>
+<tr>
+<td>Storm</td>
+<td style="text-align:left">流计算框架</td>
+</tr>
+<tr>
+<td>Flume</td>
+<td style="text-align:left">一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统</td>
+</tr>
+<tr>
+<td>Ambari</td>
+<td style="text-align:left">Hadoop快速部署工具，支持Apache   Hadoop集群的供应、管理和监控</td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td style="text-align:left">一种高吞吐量的分布式发布订阅消息系统，可以处理消费者规模的网站中的所有动作流数据</td>
+</tr>
+<tr>
+<td>Spark</td>
+<td style="text-align:left">类似于Hadoop MapReduce的通用并行框架</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Hadoop集群的部署与使用"><a href="#Hadoop集群的部署与使用" class="headerlink" title="Hadoop集群的部署与使用"></a>Hadoop集群的部署与使用</h1><h2 id="集群节点类型"><a href="#集群节点类型" class="headerlink" title="集群节点类型"></a>集群节点类型</h2><ul>
+<li>Hadoop框架中最核心的设计是为海量数据提供存储的<strong>HDFS</strong>和对数据进行计算的<strong>MapReduce</strong></li>
+<li><p>MapReduce的作业主要包括：</p>
+<ul>
+<li>从磁盘或从网络读取数据，即IO密集工作；</li>
+<li>计算数据，即CPU密集工作</li>
+</ul>
+</li>
+<li><p>一个基本的Hadoop集群中的节点主要有</p>
+<ul>
+<li>NameNode：负责协调集群中的数据存储</li>
+<li>DataNode：存储被拆分的数据块</li>
+<li>JobTracker：协调数据计算任务</li>
+<li>TaskTracker：负责执行由JobTracker指派的任务</li>
+<li>SecondaryNameNode：帮助NameNode收集文件系统运行的状态信息</li>
+</ul>
+</li>
+</ul>
+<h2 id="集群的建立与安装"><a href="#集群的建立与安装" class="headerlink" title="集群的建立与安装"></a>集群的建立与安装</h2><ul>
+<li><p>为了缓解安装和维护每个节点上相同的软件的负担，可以使用一个自动化方法实现完全自动化安装，比如Red Hat Linux’ Kickstart、Debian或者<strong>Docker</strong></p>
+</li>
+<li><p>自动化安装部署工具，会通过记录在安装过程中对于各个选项的回答来完成自动化安装过程。</p>
+</li>
+</ul>
+<h2 id="benchmark"><a href="#benchmark" class="headerlink" title="benchmark"></a>benchmark</h2><ul>
+<li><p>Hadoop自带有一些基准测试程序，被打包在测试程序JAR文件中</p>
+</li>
+<li><p>用TestDFSIO基准测试，来测试HDFS的IO性能</p>
+</li>
+<li><p>用排序测试MapReduce：Hadoop自带一个部分排序的程序，这个测试过程的整个数据集都会通过洗牌（Shuffle）传输至Reducer，可以充分测试MapReduce的性能</p>
+</li>
+</ul>
+<h1 id="Hadoop的发展"><a href="#Hadoop的发展" class="headerlink" title="Hadoop的发展"></a>Hadoop的发展</h1><h2 id="改进核心组件"><a href="#改进核心组件" class="headerlink" title="改进核心组件"></a>改进核心组件</h2><ul>
+<li>自身核心两大组件<strong>MapReduce</strong>和<strong>HDFS</strong>的架构设计改进</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>组件</strong></th>
+<th><strong>Hadoop1.0**</strong>的问题**</th>
+<th><strong>Hadoop2.0**</strong>的改进**</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HDFS</td>
+<td>单一名称节点，存在单点失效问题</td>
+<td>设计了HDFS   HA，提供名称节点热备机制</td>
+</tr>
+<tr>
+<td>HDFS</td>
+<td>单一命名空间，无法实现资源隔离</td>
+<td>设计了HDFS   Federation，管理多个命名空间</td>
+</tr>
+<tr>
+<td>MapReduce</td>
+<td>资源管理效率低</td>
+<td>设计了新的资源管理框架YARN</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其他组件不断丰富"><a href="#其他组件不断丰富" class="headerlink" title="其他组件不断丰富"></a>其他组件不断丰富</h2><ul>
+<li>Pig</li>
+<li>Tez</li>
+<li><strong>Spark</strong></li>
+<li><strong>Kafka</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>组件</strong></th>
+<th style="text-align:left"><strong>功能</strong></th>
+<th><strong>解决Hadoop中存在的问题</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pig</strong></td>
+<td style="text-align:left">处理大规模数据的脚本语言，用户只需要编写几条简单的语句，系统会自动转换为MapReduce作业</td>
+<td>抽象层次低，需要手工编写大量代码</td>
+</tr>
+<tr>
+<td><strong>Spark</strong></td>
+<td style="text-align:left">基于内存的分布式并行编程框架，具有较高的实时性，并且较好支持迭代计算</td>
+<td>延迟高，而且不适合执行迭代计算</td>
+</tr>
+<tr>
+<td><strong>Oozie</strong></td>
+<td style="text-align:left">工作流和协作服务引擎，协调Hadoop上运行的不同任务</td>
+<td>没有提供作业（Job）之间依赖关系管理机制，需要用户自己处理作业之间依赖关系</td>
+</tr>
+<tr>
+<td><strong>Tez</strong></td>
+<td style="text-align:left">支持DAG作业的计算框架，对作业的操作进行重新分解和组合，形成一个大的DAG作业，减少不必要操作</td>
+<td>不同的MapReduce任务之间存在重复操作，降低了效率</td>
+</tr>
+<tr>
+<td><strong>Kafka</strong></td>
+<td style="text-align:left">分布式发布订阅消息系统，一般作为企业大数据分析平台的数据交换枢纽，不同类型的分布式系统可以统一接入到Kafka，实现和Hadoop各个组件之间的不同类型数据的实时高效交换</td>
+<td>Hadoop生态系统中各个组件和其他产品之间缺乏统一的、高效的数据交换中介</td>
+</tr>
+</tbody>
+</table>
+<h2 id="HDFS-HA（high-availiability）"><a href="#HDFS-HA（high-availiability）" class="headerlink" title="HDFS HA（high availiability）"></a>HDFS HA（high availiability）</h2><h3 id="HDFS1-0"><a href="#HDFS1-0" class="headerlink" title="HDFS1.0"></a>HDFS1.0</h3><ul>
+<li><p><strong>NameNode</strong></p>
+<ul>
+<li><p>在磁盘上：FsImage和EditLog</p>
+</li>
+<li><p>在内存中：映射信息，即文件包含哪些块，每个块存储在哪个数据节点</p>
+</li>
+</ul>
+</li>
+<li><p><strong>SecondryNameNode</strong></p>
+<ul>
+<li>SecondaryNameNode会定期和NameNode通信</li>
+<li>从NameNode上获取到FsImage和EditLog文件，并下载到本地的相应目录下</li>
+<li><p>执行EditLog和FsImage文件合并</p>
+</li>
+<li><p>将新的FsImage文件发送到NameNode节点上</p>
+</li>
+<li>NameNode使用新的FsImage和EditLog（缩小了）</li>
+</ul>
+</li>
+</ul>
+<h3 id="HDFS-2-0"><a href="#HDFS-2-0" class="headerlink" title="HDFS 2.0"></a>HDFS 2.0</h3><ul>
+<li><p>HDFS HA（High Availability）是为了解决单点故障问题</p>
+</li>
+<li><p>HA集群设置两个名称节点，“活跃（Active）”和“待命（Standby）”</p>
+</li>
+<li><p>两种名称节点的状态同步，可以借助于一个共享存储系统来实现</p>
+</li>
+<li><p>一旦活跃名称节点出现故障，就可以立即切换到待命名称节点</p>
+</li>
+<li><p>Zookeeper确保一个名称节点在对外服务</p>
+</li>
+<li><p>名称节点维护映射信息，数据节点同时向两个名称节点汇报信息</p>
+</li>
+</ul>
+<p><img src="/images/image-20190622154543363.jpg" alt="image-20190622155453985"></p>
+<blockquote>
+<p>共享存储系统: EditLog实时同步</p>
+</blockquote>
+<h2 id="HDFS-Federation"><a href="#HDFS-Federation" class="headerlink" title="HDFS Federation"></a>HDFS Federation</h2><ul>
+<li>HDFS集群扩展性</li>
+<li>性能更高效</li>
+<li>良好的隔离性</li>
+</ul>
+<blockquote>
+<p>HDFS Federation并不能解决单点故障问题</p>
+</blockquote>
+<h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><h3 id="MapReduce1-0"><a href="#MapReduce1-0" class="headerlink" title="MapReduce1.0"></a>MapReduce1.0</h3><p><img src="/images/image-20190622163927142.jpg" alt="MapReduce1.0体系结构"></p>
+<h3 id="YARN设计思路"><a href="#YARN设计思路" class="headerlink" title="YARN设计思路"></a>YARN设计思路</h3><p><img src="/images/image-20190622164255883.jpg" alt="image-20190622164255883"></p>
+<ul>
+<li><p>到了Hadoop2.0以后，MapReduce1.0中的资源管理调度功能，被单独分离出来形成了YARN，它是一个纯粹的资源管理调度框架，而不是一个计算框架</p>
+</li>
+<li><p>被剥离了资源管理调度功能的MapReduce 框架就变成了MapReduce2.0，它是运行在YARN之上的一个纯粹的计算框架，不再自己负责资源调度管理服务，而是由YARN为其提供资源管理调度服务</p>
+</li>
+</ul>
+<h2 id="YARN体系结构"><a href="#YARN体系结构" class="headerlink" title="YARN体系结构"></a>YARN体系结构</h2><h3 id="ResourceManager"><a href="#ResourceManager" class="headerlink" title="ResourceManager"></a>ResourceManager</h3><ul>
+<li><p>ResourceManager（<strong>RM</strong>）是一个全局的资源管理器，负责整个系统的资源管理和分配，主要包括两个组件，即调度器（Scheduler）和应用程序管理器（Applications Manager）</p>
+</li>
+<li><p>调度器接收来自ApplicationMaster的应用程序资源请求，把集群中的资源以“容器”的形式分配给提出申请的应用程序，容器的选择通常会考虑应用程序所要处理的数据的位置，进行就近选择，从而实现“计算向数据靠拢”</p>
+</li>
+<li><p>容器（Container）作为动态资源分配单位，每个容器中都封装了一定数量的CPU、内存、磁盘等资源，从而限定每个应用程序可以使用的资源量</p>
+</li>
+<li><p>调度器被设计成是一个可插拔的组件，YARN不仅自身提供了许多种直接可用的调度器，也允许用户根据自己的需求重新设计调度器</p>
+</li>
+<li><p>应用程序管理器（Applications Manager）负责系统中所有应用程序的管理工作，主要包括应用程序提交、与调度器协商资源以启动ApplicationMaster、监控ApplicationMaster运行状态并在失败时重新启动等</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>RM</strong>管理的对象是<strong>Applications Master</strong></p>
+</blockquote>
+<h3 id="Applications-Master"><a href="#Applications-Master" class="headerlink" title="Applications Master"></a>Applications Master</h3><p>ResourceManager接收用户提交的作业，按照作业的上下文信息以及从NodeManager收集来的容器状态信息，启动调度过程，为用户作业启动一个ApplicationMaster。</p>
+<p>ApplicationMaster的主要功能是：</p>
+<ul>
+<li>当用户作业提交时，ApplicationMaster与ResourceManager协商获取资源，ResourceManager会以容器的形式为ApplicationMaster分配资源；</li>
+<li>把获得的资源进一步分配给内部的各个任务（Map任务或Reduce任务），实现资源的“二次分配”；</li>
+<li>与NodeManager保持交互通信进行应用程序的启动、运行、监控和停止，监控申请到的资源的使用情况，对所有任务的执行进度和状态进行监控，并在任务发生失败时执行失败恢复（即重新申请资源重启任务）；</li>
+<li>定时向ResourceManager发送“心跳”消息，报告资源的使用情况和应用的进度信息；</li>
+<li>当作业完成时，ApplicationMaster向ResourceManager注销容器，执行周期完成。</li>
+</ul>
+<h3 id="NodeManager"><a href="#NodeManager" class="headerlink" title="NodeManager"></a>NodeManager</h3><p>NodeManager是驻留在一个YARN集群中的每个节点上的代理，主要负责：</p>
+<ul>
+<li>容器生命周期管理</li>
+<li>监控每个容器的资源（CPU、内存等）使用情况</li>
+<li>跟踪节点健康状况</li>
+<li>以“心跳”的方式与ResourceManager保持通信</li>
+<li>向ResourceManager汇报作业的资源使用情况和每个容器的运行状态</li>
+<li>接收来自ApplicationMaster的<strong>启动</strong>/<strong>停止</strong>容器的各种请求</li>
+</ul>
+<h2 id="YARN和Hadoop平台其他组件的统一部署"><a href="#YARN和Hadoop平台其他组件的统一部署" class="headerlink" title="YARN和Hadoop平台其他组件的统一部署"></a>YARN和Hadoop平台其他组件的统一部署</h2><p><img src="/images/image-20190622170206108.jpg" alt="YARN和Hadoop平台其他组件的统一部署"></p>
+<h2 id="YARN的目标"><a href="#YARN的目标" class="headerlink" title="YARN的目标"></a>YARN的目标</h2><ul>
+<li><p>YARN的目标就是实现“一个集群多个框架”。</p>
+</li>
+<li><p>由YARN为这些计算框架提供统一的资源调度管理服务，并且能够根据各种计算框架的负载需求，调整各自占用的资源，实现集群资源共享和资源弹性收缩</p>
+</li>
+<li>可以实现一个集群上的不同应用负载混搭，有效提高了集群的利用率</li>
+<li>不同计算框架可以共享底层存储，避免了数据集跨集群移动</li>
+</ul>
+<h1 id="Hadoop生态系统"><a href="#Hadoop生态系统" class="headerlink" title="Hadoop生态系统"></a>Hadoop生态系统</h1><h2 id="Pig"><a href="#Pig" class="headerlink" title="Pig"></a>Pig</h2><h3 id="Pig用途"><a href="#Pig用途" class="headerlink" title="Pig用途"></a>Pig用途</h3><ul>
+<li>提供了类似SQL的Pig Latin语言（包含Filter、GroupBy、Join、OrderBy等操作，同时也支持用户自定义函数）</li>
+<li>允许用户通过编写简单的脚本来实现复杂的数据分析，而不需要编写复杂的MapReduce应用程序</li>
+<li>Pig会自动把用户编写的脚本转换成MapReduce作业在Hadoop集群上运行，而且具备对生成的MapReduce程序进行自动优化的功能</li>
+<li>用户在编写Pig程序的时候，不需要关心程序的运行效率，这就大大减少了用户编程时间</li>
+</ul>
+<h3 id="Pig书写格式"><a href="#Pig书写格式" class="headerlink" title="Pig书写格式"></a>Pig书写格式</h3><p>Pig语句通常按照如下的格式来编写:</p>
+<ul>
+<li><p>通过LOAD语句从文件系统读取数据</p>
+</li>
+<li><p>通过一系列“转换”语句对数据进行处理</p>
+</li>
+<li><p>通过一条STORE语句把处理结果输出到文件系统中，或者使用DUMP语句把处理结果输出到屏幕上</p>
+</li>
+</ul>
+<p>下面是一个采用Pig Latin语言编写的应用程序实例，实现对用户访问网页情况的统计分析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">visits             = load ‘/data/visits’ as (user, url, time);</span><br><span class="line"></span><br><span class="line">gVisits          = group visits by url;</span><br><span class="line">visitCounts  = foreach gVisits generate url, count(visits);</span><br><span class="line">//得到的表的结构visitCounts(url,visits)</span><br><span class="line">urlInfo          = load ‘/data/urlInfo’ as (url, category, pRank);</span><br><span class="line">visitCounts  = join visitCounts by url, urlInfo by url;</span><br><span class="line">//得到的连接结果表的结构visitCounts(url,visits,category,pRank)</span><br><span class="line">gCategories = group visitCounts by category;</span><br><span class="line">topUrls = foreach gCategories generate top(visitCounts,10);</span><br><span class="line"></span><br><span class="line">store topUrls into ‘/data/topUrls’;</span><br></pre></td></tr></table></figure>
+<h3 id="Pig应用场景"><a href="#Pig应用场景" class="headerlink" title="Pig应用场景"></a>Pig应用场景</h3><p>快速分析，不用直接写MapReduce任务。提高了效率，简化了流程。</p>
+<h2 id="Tez"><a href="#Tez" class="headerlink" title="Tez"></a>Tez</h2><ul>
+<li>支持DAG作用的计算框架，核心是将Map和Reduce两个操作进一步划分，行程一个大的DAG作业。使用在数据仓库Hive中的话，性能提升100倍。</li>
+<li>Tez可以优化MapReduce、Pig和Hive的性能。</li>
+<li>Tez仅能优化Map和Reduce作业。</li>
+</ul>
+<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><ul>
+<li>内存计算，效率更高</li>
+<li>基于DAG的任务调度执行机制，优于MapReduce的迭代执行机制。</li>
+</ul>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><ul>
+<li>Kafka是一种高吞吐量的分布式发布订阅消息系统，用户通过Kafka系统可以发布大量的消息，同时也能实时订阅消费消息。</li>
+<li>Kafka可以同时满足在线实时处理和批量离线处理。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://boyl40.github.com/2019/06/22/大数据处理框架Hadoop的学习/" data-id="cjx74e1a90001kv618599mg5q" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="post-Google-File-System" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/06/17/Google-File-System/" class="article-date">
@@ -126,7 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://boyl40.github.com/2019/06/17/Google-File-System/" data-id="cjx73m5xt0002ih61elttite5" class="article-share-link">分享</a>
+      <a data-url="https://boyl40.github.com/2019/06/17/Google-File-System/" data-id="cjx74e1ap0005kv61hk049cp1" class="article-share-link">分享</a>
       
       
       
@@ -210,7 +568,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://boyl40.github.com/2019/05/31/MapReduce：大型集群上的简化数据处理/" data-id="cjx73m5xv0003ih61fphwqx0x" class="article-share-link">分享</a>
+      <a data-url="https://boyl40.github.com/2019/05/31/MapReduce：大型集群上的简化数据处理/" data-id="cjx74e1ar0006kv614p5e3vv7" class="article-share-link">分享</a>
       
       
       
@@ -254,7 +612,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://boyl40.github.com/2019/05/30/新文章/" data-id="cjx73m5xg0001ih61brmxznae" class="article-share-link">分享</a>
+      <a data-url="https://boyl40.github.com/2019/05/30/新文章/" data-id="cjx74e1ab0002kv618qzcidny" class="article-share-link">分享</a>
       
       
       
@@ -311,7 +669,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://boyl40.github.com/2019/04/11/flask_celery_使用/" data-id="cjx73m5xc0000ih61yhws6puk" class="article-share-link">分享</a>
+      <a data-url="https://boyl40.github.com/2019/04/11/flask_celery_使用/" data-id="cjx74e1a40000kv61h1avntq7" class="article-share-link">分享</a>
       
       
       
@@ -360,7 +718,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title tagcloud">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/GFS/" style="font-size: 14px;">GFS</a> <a href="/tags/MapReduce/" style="font-size: 14px;">MapReduce</a>
+      <a href="/tags/GFS/" style="font-size: 14px;">GFS</a> <a href="/tags/Hadoop/" style="font-size: 14px;">Hadoop</a> <a href="/tags/MapReduce/" style="font-size: 14px;">MapReduce</a>
     </div>
   </div>
 
@@ -370,6 +728,10 @@
     <h3 class="widget-title recent-posts">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/06/22/大数据处理框架Hadoop的学习/">大数据处理框架Hadoop的学习</a>
+          </li>
         
           <li>
             <a href="/2019/06/17/Google-File-System/">Google File System</a>
@@ -396,7 +758,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title archive">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
