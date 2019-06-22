@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Google File System | shilinlee&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 简介我们设计并实现了Google GFS文件系统，一个面向大规模数据密集型应用的、可伸缩的分布式文件系统。GFS虽然运行在廉价的普遍硬件设备上，但是它依然了提供灾难冗余的能力，为大量客户机提供了高性能的服务。 首先，组件失效被认为是常态事件，而不是意外事件。所以，持续的监控、错误侦测、灾难冗余以及自动恢复的机制必须集成在GFS中。 其次，以通常的标准衡量，我们的文件非常巨大。 第三，绝">
+<meta name="keywords" content="GFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google File System">
+<meta property="og:url" content="http://yoursite.com/2019/06/17/Google-File-System/index.html">
+<meta property="og:site_name" content="shilinlee&#39;s blog">
+<meta property="og:description" content="[TOC] 简介我们设计并实现了Google GFS文件系统，一个面向大规模数据密集型应用的、可伸缩的分布式文件系统。GFS虽然运行在廉价的普遍硬件设备上，但是它依然了提供灾难冗余的能力，为大量客户机提供了高性能的服务。 首先，组件失效被认为是常态事件，而不是意外事件。所以，持续的监控、错误侦测、灾难冗余以及自动恢复的机制必须集成在GFS中。 其次，以通常的标准衡量，我们的文件非常巨大。 第三，绝">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-18T04:00:12.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google File System">
+<meta name="twitter:description" content="[TOC] 简介我们设计并实现了Google GFS文件系统，一个面向大规模数据密集型应用的、可伸缩的分布式文件系统。GFS虽然运行在廉价的普遍硬件设备上，但是它依然了提供灾难冗余的能力，为大量客户机提供了高性能的服务。 首先，组件失效被认为是常态事件，而不是意外事件。所以，持续的监控、错误侦测、灾难冗余以及自动恢复的机制必须集成在GFS中。 其次，以通常的标准衡量，我们的文件非常巨大。 第三，绝">
+  
+    <link rel="alternate" href="/atom.xml" title="shilinlee&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">shilinlee&#39;s blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Google-File-System" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/17/Google-File-System/" class="article-date">
+  <time datetime="2019-06-17T13:59:27.000Z" itemprop="datePublished">2019-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Google File System
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>[TOC]</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>我们设计并实现了Google GFS文件系统，一个面向大规模数据密集型应用的、可伸缩的分布式文件系统。GFS虽然运行在廉价的普遍硬件设备上，但是它依然了提供灾难冗余的能力，为大量客户机提供了高性能的服务。</p>
+<p><strong>首先，组件失效被认为是常态事件，而不是意外事件。</strong>所以，持续的监控、错误侦测、灾难冗余以及自动恢复的机制必须集成在GFS中。</p>
+<p><strong>其次，以通常的标准衡量</strong>，我们的文件非常巨大。</p>
+<p><strong>第三，绝大部分文件的修改是采用在文件尾部追加数据，而不是覆盖原有数据的方式。</strong>数据的追加操作是性能优化和原子性保证的主要考量因素。</p>
+<p><strong>第四，应用程序和文件系统API的协同设计提高了整个系统的灵活性。</strong></p>
+<h1 id="设计概述"><a href="#设计概述" class="headerlink" title="设计概述"></a>设计概述</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>我们支持常用的操作，如创建新文件、删除文件、打开文件、关闭文件、读和写文件。另外，GFS提供了快照和记录追加操作。</p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>一个GFS集群包含一个单独的<strong>Master</strong>节点、多台<strong>Chunk</strong>服务器，并且同时被多个客户端访问。</p>
+<p>GFS存储的文件都被分割成固定大小的Chunk。在Chunk创建的时候，Master服务器会给每个Chunk分配一个不变的、全球唯一的64位的Chunk标识。Chunk服务器把Chunk以Linux文件的形式保存在本地硬盘上，并且根据指定的Chunk标识和字节范围来读写块数据。出于可靠性的考虑，每个块都会复制到多个块服务器上。缺省情况下，我们使用3个存储复制节点，不过用户可以为不同的文件命名空间设定不同的复制级别。</p>
+<p><strong>Master</strong>节点管理所有的文件系统元数据。这些元数据包括名字空间、访问控制信息、文件和Chunk的映射信息、以及当前Chunk的位置信息。Master节点还管理着系统范围内的活动，比如，Chunk租用管理、孤儿Chunk的回收、以及Chunk在Chunk服务器之间的迁移。Master节点使用心跳信息周期地和每个Chunk服务器通讯，发送指令到各个Chunk服务器并接收Chunk服务器的状态信息。</p>
+<p><strong>GFS客户端</strong>代码以库的形式被链接到客户程序里。客户端代码实现了GFS文件系统的API接口函数、应用程序与Master节点和Chunk服务器通讯、以及对数据进行读写操作。客户端和Master节点的通信只获取元数据，所有的数据操作都是由客户端直接和Chunk服务器进行交互的。我们不提供POSIX标准的API的功能，因此，GFS API调用不需要深入到Linux vnode级别。</p>
+<p><strong>无论是客户端还是Chunk服务器都不需要缓存文件数据</strong>。客户端缓存数据几乎没有什么用处，因为大部分程序要么以流的方式读取一个巨大文件，要么工作集太大根本无法被缓存。无需考虑缓存相关的问题也简化了客户端和整个系统的设计和实现。Chunk服务器不需要缓存文件数据的原因是，Chunk以本地文件的方式保存，Linux操作系统的文件系统缓存会把经常访问的数据缓存在内存中。</p>
+<h2 id="单一Master节点"><a href="#单一Master节点" class="headerlink" title="单一Master节点"></a>单一Master节点</h2><p>单一的Master节点的策略大大简化了我们的设计。另外，我们必须减少对Master节点的读写，避免Master节点成为系统的瓶颈。</p>
+<h2 id="Chunk尺寸"><a href="#Chunk尺寸" class="headerlink" title="Chunk尺寸"></a>Chunk尺寸</h2><p>我们选择了64MB，这个尺寸远远大于一般文件系统的Block size。每个Chunk的副本都以普通Linux文件的形式保存在Chunk服务器上，只有在需要的时候才扩大。</p>
+<p>然而，当我们第一次把GFS用于批处理队列系统的时候，热点的问题还是产生了：一个可执行文件在GFS上保存为single-chunk文件，之后这个可执行文件在数百台机器上同时启动。存放这个可执行文件的几个Chunk服务器被数百个客户端的并发请求访问导致系统局部过载。我们通过使用更大的复制参数来保存可执行文件，以及错开批处理队列系统程序的启动时间的方法解决了这个问题。一个可能的长效解决方案是，<strong>在这种的情况下，允许客户端从其它客户端读取数据。</strong></p>
+<h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>Master服务器存储3种主要类型的元数据，包括：文件和Chunk的命名空间、文件和Chunk的对应关系、每个Chunk副本的存放地点。</p>
+<h3 id="内存中的数据结构"><a href="#内存中的数据结构" class="headerlink" title="内存中的数据结构"></a>内存中的数据结构</h3><p>因为元数据保存在内存中，所以Master服务器的操作速度非常快。并且，Master服务器可以在后台简单而高效的周期性扫描自己保存的全部状态信息。这种周期性的状态扫描也用于实现Chunk垃圾收集、在Chunk服务器失效的时重新复制数据、通过Chunk的迁移实现跨Chunk服务器的负载均衡以及磁盘使用状况统计等功能。</p>
+<h3 id="Chunk位置信息"><a href="#Chunk位置信息" class="headerlink" title="Chunk位置信息"></a>Chunk位置信息</h3><p><strong>Master</strong>服务器并不保存持久化保存哪个Chunk服务器存有指定Chunk的副本的信息。Master服务器只是在启动的时候轮询Chunk服务器以获取这些信息。Master服务器能够保证它持有的信息始终是最新的，因为它控制了所有的Chunk位置的分配，而且通过周期性的心跳信息监控Chunk服务器的状态。</p>
+<h3 id="操作日志"><a href="#操作日志" class="headerlink" title="操作日志"></a>操作日志</h3><p>操作日志包含了关键的元数据变更历史记录。</p>
+<p>Master服务器在灾难恢复时，通过重演操作日志把文件系统恢复到最近的状态。为了缩短Master启动的时间，我们必须使日志足够小。Master服务器在日志增长到一定量时对系统状态做一次Checkpoint，将所有的状态数据写入一个Checkpoint文件</p>
+<h2 id="一致性模型"><a href="#一致性模型" class="headerlink" title="一致性模型"></a>一致性模型</h2><h3 id="GFS一致性保障机制"><a href="#GFS一致性保障机制" class="headerlink" title="GFS一致性保障机制"></a>GFS一致性保障机制</h3><p>件命名空间的修改（例如，文件创建）是原子性的。它们仅由Master节点的控制：命名空间锁提供了原子性和正确性的保障；Master节点的操作日志定义了这些操作在全局的顺序。</p>
+<p>如果所有客户端，无论从哪个副本读取，读到的数据都一样，那么我们认为文件region是“一致的”；如果对文件的数据修改之后，region是一致的，并且客户端能够看到写入操作全部的内容，那么这个region是“已定义的”。</p>
+<h3 id="程序的实现"><a href="#程序的实现" class="headerlink" title="程序的实现"></a>程序的实现</h3><p>尽量采用追加写入而不是覆盖，Checkpoint，自验证的写入操作，自标识的记录。</p>
+<h1 id="系统交互"><a href="#系统交互" class="headerlink" title="系统交互"></a>系统交互</h1><p>一个重要的原则是最小化所有操作和Master节点的交互。</p>
+<h2 id="租约（lease）和变更顺序"><a href="#租约（lease）和变更顺序" class="headerlink" title="租约（lease）和变更顺序"></a>租约（lease）和变更顺序</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/17/Google-File-System/" data-id="cjx0g3epy0006lh61g9bhu9cj" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GFS/">GFS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/31/MapReduce：大型集群上的简化数据处理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">MapReduce：大型集群上的简化数据处理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设计概述"><span class="toc-number">2.</span> <span class="toc-text">设计概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#接口"><span class="toc-number">2.1.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架构"><span class="toc-number">2.2.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单一Master节点"><span class="toc-number">2.3.</span> <span class="toc-text">单一Master节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunk尺寸"><span class="toc-number">2.4.</span> <span class="toc-text">Chunk尺寸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元数据"><span class="toc-number">2.5.</span> <span class="toc-text">元数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内存中的数据结构"><span class="toc-number">2.5.1.</span> <span class="toc-text">内存中的数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Chunk位置信息"><span class="toc-number">2.5.2.</span> <span class="toc-text">Chunk位置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作日志"><span class="toc-number">2.5.3.</span> <span class="toc-text">操作日志</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性模型"><span class="toc-number">2.6.</span> <span class="toc-text">一致性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GFS一致性保障机制"><span class="toc-number">2.6.1.</span> <span class="toc-text">GFS一致性保障机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序的实现"><span class="toc-number">2.6.2.</span> <span class="toc-text">程序的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#系统交互"><span class="toc-number">3.</span> <span class="toc-text">系统交互</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#租约（lease）和变更顺序"><span class="toc-number">3.1.</span> <span class="toc-text">租约（lease）和变更顺序</span></a></li></ol></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2019 John Doe&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;youemail@outlook.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png">
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

@@ -13,12 +13,12 @@
 <meta property="og:site_name" content="shilinlee&#39;s blog">
 <meta property="og:description" content="简介MapReduce是一个编程模型，也是一个处理和生成超大数据集的算法模型的相关实现。用户首先创建一个Map函数处理一个基于key/value pair的数据集合，输出中间的基于key/value pair的数据集合；然后再创建一个Reduce函数用来合并所有的具有相同中间key值的中间value值。 MapReduce架构的程序能够在大量的普通配置的计算机上实现并行化处理。这个系统在运行时只关">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/images/2019/05/image-20190615232130215.png">
-<meta property="og:updated_time" content="2019-06-15T15:46:28.549Z">
+<meta property="og:image" content="http://yoursite.com/images/image-20190615232130215.png">
+<meta property="og:updated_time" content="2019-06-22T03:38:32.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MapReduce：大型集群上的简化数据处理">
 <meta name="twitter:description" content="简介MapReduce是一个编程模型，也是一个处理和生成超大数据集的算法模型的相关实现。用户首先创建一个Map函数处理一个基于key/value pair的数据集合，输出中间的基于key/value pair的数据集合；然后再创建一个Reduce函数用来合并所有的具有相同中间key值的中间value值。 MapReduce架构的程序能够在大量的普通配置的计算机上实现并行化处理。这个系统在运行时只关">
-<meta name="twitter:image" content="http://yoursite.com/images/2019/05/image-20190615232130215.png">
+<meta name="twitter:image" content="http://yoursite.com/images/image-20190615232130215.png">
   
     <link rel="alternate" href="/atom.xml" title="shilinlee&#39;s blog" type="application/atom+xml">
   
@@ -104,7 +104,7 @@
 <h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map(k1,v1) -&gt; list(k2,v2)</span><br><span class="line">reduce(k2,list(v2)) -&gt; list(v2)</span><br></pre></td></tr></table></figure>
 <p>比如，输入的key和value值与输出的key和value值在类型上推导的域不同。此外，中间key和value值与输出key和value值在类型上推导的域相同。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="执行概括"><a href="#执行概括" class="headerlink" title="执行概括"></a>执行概括</h3><p>通过将Map调用的输入数据自动分割为M个数据片段的集合，Map调用被分布到多台机器上执行。输入的数据片段能够在不同的机器上并行处理。使用分区函数将Map调用产生的中间key值分成R个不同分区（例如，hash(key) mod R），Reduce调用也被分布到多台机器上执行。分区数量（R）和分区函数由用户来指定。</p>
-<p><img src="/images/2019/05/image-20190615232130215.png" alt="image-20190615232130215"></p>
+<p><img src="/images/image-20190615232130215.png" alt="image-20190615232130215"></p>
 <p>图上展示了我们的MapReduce实现中操作的全部流程。当用户调用MapReduce函数时，将发生下面的一系列动作（下面的序号和图1中的序号一一对应）：</p>
 <ol>
 <li><p>用户程序首先调用的MapReduce库将输入文件分成M个数据片度，每个数据片段的大小一般从16MB到64MB(可以通过可选的参数来控制每个数据片段的大小)。然后用户程序在机群中创建大量的程序副本。</p>
@@ -141,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/31/MapReduce：大型集群上的简化数据处理/" data-id="cjwxp3vl50002y5610wrp5lqd" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2019/05/31/MapReduce：大型集群上的简化数据处理/" data-id="cjx0g04cm0002lh61h96wu0vq" class="article-share-link">分享</a>
       
       
       
@@ -194,6 +194,15 @@
 
     
 <nav id="article-nav">
+  
+    <a href="/2019/06/17/Google-File-System/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Google File System
+        
+      </div>
+    </a>
   
   
     <a href="/2019/05/30/新文章/" id="article-nav-older" class="article-nav-link-wrap">
