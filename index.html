@@ -66,6 +66,201 @@
       <div class="outer">
         <section id="main">
   
+    <article id="spark-初识Spark/初识Spark" class="article article-type-spark" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/24/初识Spark/初识Spark/" class="article-date">
+  <time datetime="2019-06-24T03:23:51.000Z" itemprop="datePublished">2019-06-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/24/初识Spark/初识Spark/">初识Spark</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="Spark简介"><a href="#Spark简介" class="headerlink" title="Spark简介"></a>Spark简介</h1><h2 id="Spark具有如下几个主要特点"><a href="#Spark具有如下几个主要特点" class="headerlink" title="Spark具有如下几个主要特点"></a>Spark具有如下几个主要特点</h2><ul>
+<li>运行速度快：使用DAG执行引擎以支持循环数据流与内存计算</li>
+<li>容易使用：支持使用Scala、Java、Python和R语言进行编程，可以通过Spark Shell进行交互式编程 </li>
+<li>通用性：Spark提供了完整而强大的技术栈，包括SQL查询、流式计算、机器学习和图算法组件</li>
+<li>运行模式多样：可运行于独立的集群模式中，可运行于Hadoop中，也可运行于Amazon EC2等云环境中，并且可以访问HDFS、Cassandra、HBase、Hive等多种数据源 </li>
+</ul>
+<h2 id="Scala简介"><a href="#Scala简介" class="headerlink" title="Scala简介"></a>Scala简介</h2><ul>
+<li>Scala具备强大的并发性，支持函数式编程，可以更好地支持分布式系统</li>
+<li><p>Scala语法简洁，能提供优雅的API</p>
+</li>
+<li><p>Scala兼容Java，运行速度快，且能融合到Hadoop生态圈中 </p>
+</li>
+</ul>
+<h2 id="Spark与Hadoop的对比"><a href="#Spark与Hadoop的对比" class="headerlink" title="Spark与Hadoop的对比"></a>Spark与Hadoop的对比</h2><ul>
+<li>Spark的计算模式也属于MapReduce，但不局限于Map和Reduce操作，还提供了多种数据集操作类型，编程模型比Hadoop MapReduce更灵活</li>
+<li><p>Spark提供了内存计算，可将中间结果放到内存中，对于迭代运算效率更高</p>
+</li>
+<li><p>Spark基于DAG的任务调度执行机制，要优于Hadoop MapReduce的迭代执行机制 </p>
+</li>
+</ul>
+<h1 id="Spark生态系统"><a href="#Spark生态系统" class="headerlink" title="Spark生态系统"></a>Spark生态系统</h1><p>Spark的设计遵循“一个软件栈满足不同应用场景”的理念，逐渐形成了一套完整的生态系统，既能够提供内存计算框架，也可以支持SQL即席查询、实时流式计算、机器学习和图计算等。Spark可以部署在资源管理器YARN之上，提供一站式的大数据解决方案。因此，Spark所提供的生态系统足以应对上述三种场景，即同时支持批处理、交互式查询和流数据处理。</p>
+<p>Spark的生态系统主要包含了Spark Core、Spark SQL、Spark Streaming、MLLib和GraphX 等组件。</p>
+<p><strong>Spark生态系统组件的应用场景：</strong></p>
+<table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>时间跨度</th>
+<th>其他框架</th>
+<th style="text-align:center">Spark生态系统中的组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>复杂的批量数据处理</td>
+<td>小时级</td>
+<td>MapReduce、Hive</td>
+<td style="text-align:center">Spark</td>
+</tr>
+<tr>
+<td>基于历史数据的交互式查询</td>
+<td>分钟级、秒级</td>
+<td>Impala、Dremel、Drill</td>
+<td style="text-align:center">Spark SQL</td>
+</tr>
+<tr>
+<td>基于实时数据流的数据处理</td>
+<td>毫秒、秒级</td>
+<td>Storm、S4</td>
+<td style="text-align:center">Spark Streaming</td>
+</tr>
+<tr>
+<td>基于历史数据的数据挖掘</td>
+<td>-</td>
+<td>Mahout</td>
+<td style="text-align:center">MLlib</td>
+</tr>
+<tr>
+<td>图结构数据的处理</td>
+<td>-</td>
+<td>Pregel、Hama</td>
+<td style="text-align:center">GraphX</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Spark运行架构"><a href="#Spark运行架构" class="headerlink" title="Spark运行架构"></a>Spark运行架构</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>RDD：是Resillient Distributed Dataset（弹性分布式数据集）的简称，是分布式内存的一个抽象概念，提供了一种高度受限的共享内存模型</li>
+<li>DAG：是Directed Acyclic Graph（有向无环图）的简称，反映RDD之间的依赖关系</li>
+<li>Executor：是运行在工作节点（WorkerNode）的一个进程，负责运行Task</li>
+<li>Application：用户编写的Spark应用程序</li>
+<li>Task：运行在Executor上的工作单元 </li>
+<li>Job：一个Job包含多个RDD及作用于相应RDD上的各种操作</li>
+<li>Stage：是Job的基本调度单位，一个Job会分为多组Task，每组Task被称为Stage，或者也被称为TaskSet，代表了一组关联的、相互之间没有Shuffle依赖关系的任务组成的任务集</li>
+</ul>
+<h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><ul>
+<li>Spark运行架构包括集群资源管理器（Cluster Manager）、运行作业任务的工作节点（Worker Node）、每个应用的任务控制节点（Driver）和每个工作节点上负责具体任务的执行进程（Executor）</li>
+</ul>
+<p><img src="/images/image-20190623155140275.jpg" alt="image-20190623155140275"></p>
+<ul>
+<li>一个Application由一个Driver和若干个Job构成，一个Job由多个Stage构成，一个Stage由多个没有Shuffle关系的Task组成</li>
+<li>当执行一个Application时，Driver会向集群管理器申请资源，启动Executor，并向Executor发送应用程序代码和文件，然后在Executor上执行Task，运行结束后，执行结果会返回给Driver，或者写到HDFS或者其他数据库中</li>
+</ul>
+<p><img src="/images/image-20190623160021750.jpg" alt="image-20190623160021750"></p>
+<h2 id="Spark运行基本流程"><a href="#Spark运行基本流程" class="headerlink" title="Spark运行基本流程"></a>Spark运行基本流程</h2><ul>
+<li>首先为应用构建起基本的运行环境，即由Driver创建一个SparkContext，进行资源的申请、任务的分配和监控</li>
+<li>资源管理器为Executor分配资源，并启动Executor进程</li>
+<li>SparkContext根据RDD的依赖关系构建DAG图，DAG图提交给DAGScheduler解析成Stage，然后把一个个TaskSet提交给底层调度器TaskScheduler处理；Executor向SparkContext申请Task，Task Scheduler将Task发放给Executor运行，并提供应用程序代码</li>
+<li>Task在Executor上运行，把执行结果反馈给TaskScheduler，然后反馈给DAGScheduler，运行完毕后写入数据并释放所有资源 </li>
+</ul>
+<h2 id="RDD运行原理"><a href="#RDD运行原理" class="headerlink" title="RDD运行原理"></a>RDD运行原理</h2><h3 id="RDD概念"><a href="#RDD概念" class="headerlink" title="RDD概念"></a>RDD概念</h3><ul>
+<li><p>一个RDD就是一个分布式对象集合，本质上是一个<strong>只读</strong>的分区记录集合，每个RDD可分成多个分区，每个分区就是一个数据集片段，并且一个RDD的不同分区可以被保存到集群中不同的节点上，从而可以在集群中的不同节点上进行并行计算</p>
+</li>
+<li><p>RDD提供了一种高度<strong>受限</strong>的共享内存模型，即RDD是只读的记录分区的集合，不能直接修改，只能基于稳定的物理存储中的数据集创建RDD，或者通过在其他RDD上执行确定的转换操作（如map、join和group by）而创建得到新的RDD</p>
+</li>
+<li>RDD提供了一组丰富的操作以支持常见的数据运算，分为“动作”（Action）和“转换”（Transformation）两种类型</li>
+<li>RDD提供的转换接口都非常简单，都是类似<strong>map、filter、groupBy、join</strong>等粗粒度的数据转换操作，而不是针对某个数据项的细粒度修改（<strong>不适合网页爬虫</strong>）</li>
+<li>表面上RDD的功能很受限、不够强大，实际上RDD已经被实践证明可以高效地表达许多框架的编程模型（比如MapReduce、SQL、Pregel）</li>
+<li>Spark用Scala语言实现了RDD的API，程序员可以通过调用API实现对RDD的各种操作</li>
+</ul>
+<p><strong>RDD典型的执行过程如下：</strong></p>
+<ul>
+<li><p>RDD读入外部数据源进行创建</p>
+</li>
+<li><p>RDD经过一系列的转换（Transformation）操作，每一次都会产生不同的RDD，供给下一个转换操作使用</p>
+</li>
+<li><p>最后一个RDD经过“动作”操作进行转换，并输出到外部数据源 </p>
+</li>
+</ul>
+<p>这一系列处理称为一个Lineage（血缘关系），即DAG拓扑排序的结果。</p>
+<p>优点：惰性调用、管道化、避免同步等待、不需要保存中间结果、每次操作变得简单</p>
+<h3 id="RDD特性"><a href="#RDD特性" class="headerlink" title="RDD特性"></a>RDD特性</h3><ul>
+<li>高效的容错性。RDD: 血缘关系、重新计算丢失分区、无需回滚系统、重算过程在不同节点之间并行、只记录粗粒度的操作</li>
+<li>中间结果持久化到内存，数据在内存中的多个RDD操作之间进行传递，避免了不必要的读写磁盘开销</li>
+<li>存放的数据可以是Java对象，避免了不必要的对象序列化和反序列化</li>
+</ul>
+<h3 id="RDD的依赖关系"><a href="#RDD的依赖关系" class="headerlink" title="RDD的依赖关系"></a>RDD的依赖关系</h3><p><img src="/images/rdd依赖关系.jpg" alt="窄依赖与宽依赖的区别"></p>
+<ul>
+<li><p>窄依赖表现为一个父RDD的分区对应于一个子RDD的分区或多个父RDD的分区对应于一个子RDD的分区</p>
+</li>
+<li><p>宽依赖则表现为存在一个父RDD的一个分区对应一个子RDD的多个分区</p>
+</li>
+</ul>
+<h3 id="Stage的划分"><a href="#Stage的划分" class="headerlink" title="Stage的划分"></a>Stage的划分</h3><p>Spark通过分析各个RDD的依赖关系生成了DAG，再通过分析各个RDD中的分区之间的依赖关系来决定如何划分Stage，具体划分方法是：</p>
+<ul>
+<li><p>在DAG中进行反向解析，遇到宽依赖就断开</p>
+</li>
+<li><p>遇到窄依赖就把当前的RDD加入到Stage中</p>
+</li>
+<li><p>将窄依赖尽量划分在同一个Stage中，可以实现流水线计算</p>
+</li>
+</ul>
+<p><img src="/images/rdd_stage分区.jpg" alt="rdd_stage分区"></p>
+<h2 id="Spark-SQL"><a href="#Spark-SQL" class="headerlink" title="Spark SQL"></a>Spark SQL</h2><h3 id="Shark"><a href="#Shark" class="headerlink" title="Shark"></a>Shark</h3><ul>
+<li><p>Shark即Hive on Spark，为了实现与Hive兼容，Shark在HiveQL方面重用了Hive中HiveQL的解析、逻辑执行计划翻译、执行计划优化等逻辑，可以近似认为仅将物理执行计划从MapReduce作业替换成了Spark作业，通过Hive的HiveQL解析，把HiveQL翻译成Spark上的RDD操作。</p>
+</li>
+<li><p>Shark的设计导致了两个问题：</p>
+<ul>
+<li>一是执行计划优化完全依赖于Hive，不方便添加新的优化策略；</li>
+<li>二是因为Spark是线程级并行，而MapReduce是进程级并行，因此，Spark在兼容Hive的实现上存在线程安全问题，导致Shark不得不使用另外一套独立维护的打了补丁的Hive源码分支</li>
+</ul>
+</li>
+</ul>
+<h3 id="Spark-SQL设计"><a href="#Spark-SQL设计" class="headerlink" title="Spark SQL设计"></a>Spark SQL设计</h3><p>Spark SQL在Hive兼容层面仅依赖HiveQL解析、Hive元数据，也就是说，从HQL被解析成抽象语法树（AST）起，就全部由Spark SQL接管了。Spark SQL执行计划生成和优化都由Catalyst（函数式关系查询优化框架）负责。</p>
+<ul>
+<li><p>Spark SQL增加了SchemaRDD（即带有Schema信息的RDD），使用户可以在Spark SQL中执行SQL语句，数据既可以来自RDD，也可以是Hive、HDFS、Cassandra等外部数据源，还可以是JSON格式的数据</p>
+</li>
+<li><p>Spark SQL目前支持Scala、Java、Python三种语言，支持SQL-92规范</p>
+</li>
+</ul>
+<h1 id="Spark的部署和应用方式"><a href="#Spark的部署和应用方式" class="headerlink" title="Spark的部署和应用方式"></a>Spark的部署和应用方式</h1><h2 id="Spark应用程序"><a href="#Spark应用程序" class="headerlink" title="Spark应用程序"></a>Spark应用程序</h2><ul>
+<li>Python</li>
+<li>Scala</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shilinlee.github.com/2019/06/24/初识Spark/初识Spark/" data-id="cjx8q6yqi000cfx61jblc600x" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="hadoop-离线批处理MapReduce任务执行过程详解" class="article article-type-hadoop" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/06/23/离线批处理MapReduce任务执行过程详解/" class="article-date">
@@ -123,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shilinlee.github.com/2019/06/23/离线批处理MapReduce任务执行过程详解/" data-id="cjx8lxlab0001g561qk7e5goa" class="article-share-link">分享</a>
+      <a data-url="https://shilinlee.github.com/2019/06/23/离线批处理MapReduce任务执行过程详解/" data-id="cjx8q6ypd0001fx61pz7yc4uu" class="article-share-link">分享</a>
       
       
       
@@ -481,7 +676,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shilinlee.github.com/2019/06/22/大数据处理框架Hadoop的学习/" data-id="cjx8lxlaz0007g561izhuprt9" class="article-share-link">分享</a>
+      <a data-url="https://shilinlee.github.com/2019/06/22/大数据处理框架Hadoop的学习/" data-id="cjx8q6ypw0007fx61478b6fu9" class="article-share-link">分享</a>
       
       
       
@@ -555,7 +750,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shilinlee.github.com/2019/06/17/Google-File-System/" data-id="cjx8lxlav0004g561pss8vxdr" class="article-share-link">分享</a>
+      <a data-url="https://shilinlee.github.com/2019/06/17/Google-File-System/" data-id="cjx8q6ypu0004fx612wm7wbfl" class="article-share-link">分享</a>
       
       
       
@@ -639,7 +834,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shilinlee.github.com/2019/05/31/MapReduce：大型集群上的简化数据处理/" data-id="cjx8lxlaw0005g561p5zydd6d" class="article-share-link">分享</a>
+      <a data-url="https://shilinlee.github.com/2019/05/31/MapReduce：大型集群上的简化数据处理/" data-id="cjx8q6ypv0005fx61aq4upfb2" class="article-share-link">分享</a>
       
       
       
@@ -696,7 +891,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shilinlee.github.com/2019/04/11/flask_celery_使用/" data-id="cjx8lxla70000g561xhjxrzbs" class="article-share-link">分享</a>
+      <a data-url="https://shilinlee.github.com/2019/04/11/flask_celery_使用/" data-id="cjx8q6yp80000fx61d1cbrxm5" class="article-share-link">分享</a>
       
       
       
@@ -745,7 +940,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title tagcloud">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/GFS/" style="font-size: 14px;">GFS</a> <a href="/tags/Hadoop/" style="font-size: 25px;">Hadoop</a> <a href="/tags/MapReduce/" style="font-size: 14px;">MapReduce</a>
+      <a href="/tags/GFS/" style="font-size: 14px;">GFS</a> <a href="/tags/Hadoop/" style="font-size: 25px;">Hadoop</a> <a href="/tags/MapReduce/" style="font-size: 14px;">MapReduce</a> <a href="/tags/Spark/" style="font-size: 14px;">Spark</a>
     </div>
   </div>
 
@@ -755,6 +950,10 @@
     <h3 class="widget-title recent-posts">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/06/24/初识Spark/初识Spark/">初识Spark</a>
+          </li>
         
           <li>
             <a href="/2019/06/23/离线批处理MapReduce任务执行过程详解/">离线批处理MapReduce任务执行过程详解</a>
@@ -772,10 +971,6 @@
             <a href="/2019/05/31/MapReduce：大型集群上的简化数据处理/">MapReduce：大型集群上的简化数据处理</a>
           </li>
         
-          <li>
-            <a href="/2019/04/11/flask_celery_使用/">Celery的使用心得</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -785,7 +980,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title archive">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
