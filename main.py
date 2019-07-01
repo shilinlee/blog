@@ -93,7 +93,7 @@ def format_issue_with_labels(issue: Issue):
         labels_str += sub('[%s](https://github.com/%s/blog/labels/%s)\t|\t' % (
             label.name, user.get_user().login, urllib.parse.quote(label.name)))
 
-    return '- [%s](%s) %s  \t\t\t :alarm_clock:%s %s\n\n' % (
+    return '  - [%s](%s) %s  \t\t\t :alarm_clock:%s %s\n\n' % (
         issue.title, issue.html_url, sup('%s :speech_balloon:' % issue.comments), sub(issue.created_at), labels_str)
 
 
@@ -144,7 +144,7 @@ def bundle_about_me_section():
     about_me_section = '''
 ## 关于:boy: 
 [<img alt="%s" src="%s" width="233"/>](%s)
-**%s**
+\n**%s**
 :round_pushpin: %s
 :black_flag: %s
 ''' % (user.get_user().name, user.get_user().avatar_url, user.get_user().html_url, user.get_user().name,
