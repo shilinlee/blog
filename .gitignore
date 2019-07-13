@@ -1,3 +1,7 @@
+github_id_rsa.pub
+github_id_rsa
+    
+
 *.pyc
 
 *.pytest_cache
