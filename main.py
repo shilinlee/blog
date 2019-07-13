@@ -15,7 +15,7 @@ cur_time: str
 
 
 def format_issue(issue: Issue):
-    return '- [%s](%s)  %s  \t :alarm_clock:%s \n' % (
+    return '- [%s](%s)%s :alarm_clock:%s \n' % (
         issue.title, issue.html_url, sup('%s :speech_balloon:' % issue.comments), sub(issue.created_at))
 
 
@@ -36,8 +36,8 @@ def update_readme_md_file(contents):
 
 def login():
     global user
-    username = os.environ.get('GITHUB_LOGIN')
-    password = os.environ.get('GITHUB_PASSWORD')
+    username = os.environ.get('GITHUB_LOGIN') or "shilinlee"
+    password = os.environ.get('GITHUB_PASSWORD') or "Li40836160610"
     user = Github(username, password)
 
 
@@ -57,7 +57,7 @@ def bundle_summary_section():
     issues_html_url = 'https://github.com/%s/blog/issues' % user.get_user().login
 
     summary_section = '''
-# GitHub Issues Blog :tada::tada::tada:
+# GitHub Issues Blog
     
 > :alarm_clock: 上次更新: %s
     
@@ -140,15 +140,11 @@ def bundle_list_by_labels_section():
 
 def bundle_about_me_section():
     global user
-
     about_me_section = '''
-## 关于:boy: 
-[<img alt="%s" src="%s" width="233"/>](%s)
-\n**%s**
-:round_pushpin: %s
-:black_flag: %s
-''' % (user.get_user().name, user.get_user().avatar_url, user.get_user().html_url, user.get_user().name,
-       user.get_user().location,
+## 关于
+:round_pushpin: %s \n
+:black_flag: %s \n
+''' % (user.get_user().location,
        user.get_user().bio)
 
     return about_me_section
