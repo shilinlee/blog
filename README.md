@@ -1,11 +1,7 @@
 
 # GitHub Issues Blog
     
-<<<<<<< HEAD
-> :alarm_clock: 上次更新: 2019-07-13 10:16:35
-=======
-> :alarm_clock: 上次更新: 2019-07-13 00:00:29
->>>>>>> 30156ea4398ae6fb5da93ea776486efc9987947c
+> :alarm_clock: 上次更新: 2019-07-14 00:00:41
     
 共 [5](https://github.com/shilinlee/blog/labels) 个标签, [10](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
@@ -43,37 +39,23 @@
 
 <details>
 <summary>RDD	<sup>3:newspaper:</sup></summary>
-<<<<<<< HEAD
 - [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
 - [Spark系列: Transformations算子讲解](https://github.com/shilinlee/blog/issues/9)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-30 14:10:59</sub> 
 - [Spark系列: 深入理解RDD](https://github.com/shilinlee/blog/issues/1)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-27 23:56:29</sub> 
-=======
-- [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
-- [Spark系列: Transformations算子讲解](https://github.com/shilinlee/blog/issues/9)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-30 14:10:59</sub> 
-- [Spark系列: 深入理解RDD](https://github.com/shilinlee/blog/issues/1)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-27 23:56:29</sub> 
->>>>>>> 30156ea4398ae6fb5da93ea776486efc9987947c
 
 </details>
 
 <details>
 <summary>Spark	<sup>4:newspaper:</sup></summary>
-<<<<<<< HEAD
 - [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
 - [Spark系列: Transformations算子讲解](https://github.com/shilinlee/blog/issues/9)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-30 14:10:59</sub> 
 - [Spark系列: 初识Spark](https://github.com/shilinlee/blog/issues/8)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-28 12:51:34</sub> 
 - [Spark系列: 深入理解RDD](https://github.com/shilinlee/blog/issues/1)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-27 23:56:29</sub> 
-=======
-- [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
-- [Spark系列: Transformations算子讲解](https://github.com/shilinlee/blog/issues/9)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-30 14:10:59</sub> 
-- [Spark系列: 初识Spark](https://github.com/shilinlee/blog/issues/8)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 12:51:34</sub> 
-- [Spark系列: 深入理解RDD](https://github.com/shilinlee/blog/issues/1)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-27 23:56:29</sub> 
->>>>>>> 30156ea4398ae6fb5da93ea776486efc9987947c
 
 </details>
 
 <details>
 <summary>大数据	<sup>10:newspaper:</sup></summary>
-<<<<<<< HEAD
 - [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
 - [Spark系列: Transformations算子讲解](https://github.com/shilinlee/blog/issues/9)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-30 14:10:59</sub> 
 - [Spark系列: 初识Spark](https://github.com/shilinlee/blog/issues/8)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-28 12:51:34</sub> 
@@ -84,18 +66,6 @@
 - [The Google File System](https://github.com/shilinlee/blog/issues/3)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-28 05:58:05</sub> 
 - [大数据技术关键字](https://github.com/shilinlee/blog/issues/2)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-28 04:23:47</sub> 
 - [Spark系列: 深入理解RDD](https://github.com/shilinlee/blog/issues/1)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-27 23:56:29</sub> 
-=======
-- [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
-- [Spark系列: Transformations算子讲解](https://github.com/shilinlee/blog/issues/9)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-30 14:10:59</sub> 
-- [Spark系列: 初识Spark](https://github.com/shilinlee/blog/issues/8)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 12:51:34</sub> 
-- [Hadoop：离线批处理MapReduce任务执行过程详解](https://github.com/shilinlee/blog/issues/7)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 12:46:42</sub> 
-- [大数据处理框架Hadoop的学习](https://github.com/shilinlee/blog/issues/6)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 12:39:49</sub> 
-- [MapReduce：大型集群上的简化数据处理](https://github.com/shilinlee/blog/issues/5)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 06:14:33</sub> 
-- [Bigtable：结构化数据的分布式存储系统](https://github.com/shilinlee/blog/issues/4)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 06:10:36</sub> 
-- [The Google File System](https://github.com/shilinlee/blog/issues/3)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 05:58:05</sub> 
-- [大数据技术关键字](https://github.com/shilinlee/blog/issues/2)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-28 04:23:47</sub> 
-- [Spark系列: 深入理解RDD](https://github.com/shilinlee/blog/issues/1)  <sup>0 :speech_balloon:</sup>  	 :alarm_clock:<sub>2019-06-27 23:56:29</sub> 
->>>>>>> 30156ea4398ae6fb5da93ea776486efc9987947c
 
 </details>
 
