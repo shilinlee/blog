@@ -20,6 +20,8 @@ scripts
 
 *.vscode
 
-/python/env/*
-
 .python-version
+.env
+pyspark-2.4.3/*
+123env
+.ipynb_checkpoints*

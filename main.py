@@ -36,8 +36,8 @@ def update_readme_md_file(contents):
 
 def login():
     global user
-    username = os.environ.get('GITHUB_LOGIN') or "shilinlee"
-    password = os.environ.get('GITHUB_PASSWORD') or "Li40836160610"
+    username = os.environ.get('GITHUB_LOGIN')
+    password = os.environ.get('GITHUB_PASSWORD')
     user = Github(username, password)
 
 
