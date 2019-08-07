@@ -1,10 +1,13 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2019-08-06 00:01:08
+> :alarm_clock: 上次更新: 2019-08-07 00:01:35
     
-共 [5](https://github.com/shilinlee/blog/labels) 个标签, [14](https://github.com/shilinlee/blog/issues) 篇博文.
+共 [5](https://github.com/shilinlee/blog/labels) 个标签, [15](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
+  - [Spark内核设计的艺术: 第4章 SparkContext的初始化](https://github.com/shilinlee/blog/issues/15) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-06 23:17:20</sub> 
+ :label: 	<sub>|</sub><sub>[RDD](https://github.com/shilinlee/blog/labels/RDD)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
+
   - [Spark内核设计的艺术: 第3章 Spark基础设施](https://github.com/shilinlee/blog/issues/14) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-04 09:41:35</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
@@ -16,9 +19,6 @@
 
   - [Spark系列: DataFrame介绍](https://github.com/shilinlee/blog/issues/11) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-07-18 00:53:16</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
-
-  - [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
- :label: 	<sub>|</sub><sub>[RDD](https://github.com/shilinlee/blog/labels/RDD)	|	</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
 ## 分类  :card_file_box: 
 
@@ -38,7 +38,8 @@
 </details>
 
 <details>
-<summary>RDD	<sup>3:newspaper:</sup></summary>
+<summary>RDD	<sup>4:newspaper:</sup></summary>
+- [Spark内核设计的艺术: 第4章 SparkContext的初始化](https://github.com/shilinlee/blog/issues/15)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-06 23:17:20</sub> 
 - [Spark系列: Action算子讲解](https://github.com/shilinlee/blog/issues/10)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-03 14:45:11</sub> 
 - [Spark系列: Transformations算子讲解](https://github.com/shilinlee/blog/issues/9)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-30 14:10:59</sub> 
 - [Spark系列: 深入理解RDD](https://github.com/shilinlee/blog/issues/1)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-06-27 23:56:29</sub> 
@@ -59,7 +60,8 @@
 </details>
 
 <details>
-<summary>大数据	<sup>14:newspaper:</sup></summary>
+<summary>大数据	<sup>15:newspaper:</sup></summary>
+- [Spark内核设计的艺术: 第4章 SparkContext的初始化](https://github.com/shilinlee/blog/issues/15)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-06 23:17:20</sub> 
 - [Spark内核设计的艺术: 第3章 Spark基础设施](https://github.com/shilinlee/blog/issues/14)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-04 09:41:35</sub> 
 - [Spark系列: 流计算Spark Streaming](https://github.com/shilinlee/blog/issues/13)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-22 14:38:58</sub> 
 - [Spark系列: 理解Catalyst优化器原理](https://github.com/shilinlee/blog/issues/12)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-19 00:59:26</sub> 
