@@ -1,10 +1,13 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2019-08-09 00:01:22
+> :alarm_clock: 上次更新: 2019-08-10 00:01:41
     
-共 [5](https://github.com/shilinlee/blog/labels) 个标签, [15](https://github.com/shilinlee/blog/issues) 篇博文.
+共 [5](https://github.com/shilinlee/blog/labels) 个标签, [16](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
+  - [Spark内核设计的艺术: 第5章 Spark执行环境](https://github.com/shilinlee/blog/issues/16) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-09 01:01:23</sub> 
+ :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
+
   - [Spark内核设计的艺术: 第4章 SparkContext的初始化](https://github.com/shilinlee/blog/issues/15) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-06 23:17:20</sub> 
  :label: 	<sub>|</sub><sub>[RDD](https://github.com/shilinlee/blog/labels/RDD)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
@@ -15,9 +18,6 @@
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
   - [Spark系列: 理解Catalyst优化器原理](https://github.com/shilinlee/blog/issues/12) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-07-19 00:59:26</sub> 
- :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
-
-  - [Spark系列: DataFrame介绍](https://github.com/shilinlee/blog/issues/11) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-07-18 00:53:16</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
 ## 分类  :card_file_box: 
@@ -47,7 +47,8 @@
 </details>
 
 <details>
-<summary>Spark	<sup>8:newspaper:</sup></summary>
+<summary>Spark	<sup>9:newspaper:</sup></summary>
+- [Spark内核设计的艺术: 第5章 Spark执行环境](https://github.com/shilinlee/blog/issues/16)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-09 01:01:23</sub> 
 - [Spark内核设计的艺术: 第3章 Spark基础设施](https://github.com/shilinlee/blog/issues/14)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-04 09:41:35</sub> 
 - [Spark系列: 流计算Spark Streaming](https://github.com/shilinlee/blog/issues/13)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-22 14:38:58</sub> 
 - [Spark系列: 理解Catalyst优化器原理](https://github.com/shilinlee/blog/issues/12)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-19 00:59:26</sub> 
@@ -60,7 +61,8 @@
 </details>
 
 <details>
-<summary>大数据	<sup>15:newspaper:</sup></summary>
+<summary>大数据	<sup>16:newspaper:</sup></summary>
+- [Spark内核设计的艺术: 第5章 Spark执行环境](https://github.com/shilinlee/blog/issues/16)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-09 01:01:23</sub> 
 - [Spark内核设计的艺术: 第4章 SparkContext的初始化](https://github.com/shilinlee/blog/issues/15)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-06 23:17:20</sub> 
 - [Spark内核设计的艺术: 第3章 Spark基础设施](https://github.com/shilinlee/blog/issues/14)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-04 09:41:35</sub> 
 - [Spark系列: 流计算Spark Streaming](https://github.com/shilinlee/blog/issues/13)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-07-22 14:38:58</sub> 
