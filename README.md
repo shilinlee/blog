@@ -1,11 +1,11 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2019-08-28 00:10:29
+> :alarm_clock: 上次更新: 2019-08-29 00:10:32
     
 共 [5](https://github.com/shilinlee/blog/labels) 个标签, [20](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
-  - [Spark内核设计的艺术: 第9章 计部署模式](https://github.com/shilinlee/blog/issues/20) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
+  - [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
   - [Spark内核设计的艺术: 第8章 计算引擎](https://github.com/shilinlee/blog/issues/19) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-21 00:31:20</sub> 
@@ -49,7 +49,7 @@
 
 <details>
 <summary>Spark	<sup>13:newspaper:</sup></summary>
-- [Spark内核设计的艺术: 第9章 计部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
+- [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
 - [Spark内核设计的艺术: 第8章 计算引擎](https://github.com/shilinlee/blog/issues/19)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-21 00:31:20</sub> 
 - [Spark内核设计的艺术: 第7章 调度系统](https://github.com/shilinlee/blog/issues/18)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-16 00:30:34</sub> 
 - [Spark内核设计的艺术: 第6章 存储体系](https://github.com/shilinlee/blog/issues/17)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-12 00:26:31</sub> 
@@ -67,7 +67,7 @@
 
 <details>
 <summary>大数据	<sup>20:newspaper:</sup></summary>
-- [Spark内核设计的艺术: 第9章 计部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
+- [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
 - [Spark内核设计的艺术: 第8章 计算引擎](https://github.com/shilinlee/blog/issues/19)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-21 00:31:20</sub> 
 - [Spark内核设计的艺术: 第7章 调度系统](https://github.com/shilinlee/blog/issues/18)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-16 00:30:34</sub> 
 - [Spark内核设计的艺术: 第6章 存储体系](https://github.com/shilinlee/blog/issues/17)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-12 00:26:31</sub> 
