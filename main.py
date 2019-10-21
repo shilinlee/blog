@@ -131,7 +131,11 @@ def bundle_list_by_labels_section():
         list_by_labels_section += '''
 <details>
 <summary>%s\t<sup>%s:newspaper:</sup></summary>
+
+
 %s
+
+
 </details>
 ''' % (label.name, count, temp)
 
