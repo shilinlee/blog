@@ -1,10 +1,13 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2019-11-07 00:10:36
+> :alarm_clock: 上次更新: 2019-11-08 00:10:27
     
-共 [5](https://github.com/shilinlee/blog/labels) 个标签, [22](https://github.com/shilinlee/blog/issues) 篇博文.
+共 [5](https://github.com/shilinlee/blog/labels) 个标签, [23](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
+  - [Spark快速大数据分析: 第5章 数据读取与保存](https://github.com/shilinlee/blog/issues/23) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-11-07 00:55:10</sub> 
+ :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
+
   - [科学计算框架的学习记录](https://github.com/shilinlee/blog/issues/22) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-09-25 00:56:00</sub> 
  :label: 	<sub>|</sub>
 
@@ -16,9 +19,6 @@
 
   - [Spark内核设计的艺术: 第8章 计算引擎](https://github.com/shilinlee/blog/issues/19) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-21 00:31:20</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
-
-  - [Spark内核设计的艺术: 第7章 调度系统](https://github.com/shilinlee/blog/issues/18) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-16 00:30:34</sub> 
- :label: 	<sub>|</sub><sub>[RDD](https://github.com/shilinlee/blog/labels/RDD)	|	</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
 ## 分类  :card_file_box: 
 
@@ -60,9 +60,10 @@
 </details>
 
 <details>
-<summary>Spark	<sup>14:newspaper:</sup></summary>
+<summary>Spark	<sup>15:newspaper:</sup></summary>
 
 
+- [Spark快速大数据分析: 第5章 数据读取与保存](https://github.com/shilinlee/blog/issues/23)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-07 00:55:10</sub> 
 - [Spark内核设计的艺术: 第10章 Spark API](https://github.com/shilinlee/blog/issues/21)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-30 00:07:50</sub> 
 - [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
 - [Spark内核设计的艺术: 第8章 计算引擎](https://github.com/shilinlee/blog/issues/19)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-21 00:31:20</sub> 
@@ -83,9 +84,10 @@
 </details>
 
 <details>
-<summary>大数据	<sup>21:newspaper:</sup></summary>
+<summary>大数据	<sup>22:newspaper:</sup></summary>
 
 
+- [Spark快速大数据分析: 第5章 数据读取与保存](https://github.com/shilinlee/blog/issues/23)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-07 00:55:10</sub> 
 - [Spark内核设计的艺术: 第10章 Spark API](https://github.com/shilinlee/blog/issues/21)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-30 00:07:50</sub> 
 - [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
 - [Spark内核设计的艺术: 第8章 计算引擎](https://github.com/shilinlee/blog/issues/19)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-21 00:31:20</sub> 
