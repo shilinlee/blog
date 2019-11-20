@@ -1,10 +1,13 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2019-11-19 00:19:14
+> :alarm_clock: 上次更新: 2019-11-20 00:10:24
     
-共 [5](https://github.com/shilinlee/blog/labels) 个标签, [23](https://github.com/shilinlee/blog/issues) 篇博文.
+共 [5](https://github.com/shilinlee/blog/labels) 个标签, [24](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
+  - [Spark快速大数据分析: 第6章 Spark编程进阶](https://github.com/shilinlee/blog/issues/24) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-11-19 14:28:53</sub> 
+ :label: 	<sub>|</sub>
+
   - [Spark快速大数据分析: 第5章 数据读取与保存](https://github.com/shilinlee/blog/issues/23) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-11-07 00:55:10</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
@@ -15,9 +18,6 @@
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
   - [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
- :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
-
-  - [Spark内核设计的艺术: 第8章 计算引擎](https://github.com/shilinlee/blog/issues/19) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-21 00:31:20</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
 ## 分类  :card_file_box: 
