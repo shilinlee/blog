@@ -1,11 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+import os
 from github import Github
 from github.Issue import Issue
 from github.Repository import Repository
-import os
-import time
+from datetime import datetime, timezone, timedelta
 import urllib.parse
 import codecs
 
@@ -157,8 +156,8 @@ def bundle_about_me_section():
 def execute():
     global cur_time
     # common
-    cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
+    now = datetime.utcnow().astimezone(timezone(timedelta(hours=8)))
+    cur_time = now.strftime("%Y-%m-%d %H:%M:%S")
     # 1. login
     login()
 
