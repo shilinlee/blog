@@ -91,7 +91,7 @@ var s3 = [...]string{1: "世界", 0: "你好", }
 // 结构体数组
 var line1 [2]image.Point
 var line2 = [...]image.Point{image.Point{X: 0, Y: 0}, image.Point{X: 1, Y: 1}}
-var line3 = [...]image.Point{{0, 0}, {1, 1}}
+var line3 = [...]image.Point{ {0, 0}, {1, 1}}
 
 // 图像解码器数组
 var decoder1 [2]func(io.Reader) (image.Image, error)
