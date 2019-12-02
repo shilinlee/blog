@@ -1,23 +1,23 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2019-12-01 08:10:33
+> :alarm_clock: 上次更新: 2019-12-02 08:10:26
     
-共 [5](https://github.com/shilinlee/blog/labels) 个标签, [25](https://github.com/shilinlee/blog/issues) 篇博文.
+共 [5](https://github.com/shilinlee/blog/labels) 个标签, [29](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
-  - [Spark快速大数据分析: 第7章 在集群上运行Spark](https://github.com/shilinlee/blog/issues/25) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-11-25 14:45:16</sub> 
- :label: 	<sub>|</sub>
-
-  - [Spark快速大数据分析: 第6章 Spark编程进阶](https://github.com/shilinlee/blog/issues/24) <sup>1 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-11-19 14:28:53</sub> 
- :label: 	<sub>|</sub>
-
-  - [Spark快速大数据分析: 第5章 数据读取与保存](https://github.com/shilinlee/blog/issues/23) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-11-07 00:55:10</sub> 
+  - [Spark快速大数据分析: 第11章 基于MLlib的机器学习](https://github.com/shilinlee/blog/issues/29) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:50:28</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
-  - [科学计算框架的学习记录](https://github.com/shilinlee/blog/issues/22) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-09-25 00:56:00</sub> 
- :label: 	<sub>|</sub>
+  - [Spark快速大数据分析: 第10章 Spark Streaming](https://github.com/shilinlee/blog/issues/28) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:49:47</sub> 
+ :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
-  - [Spark内核设计的艺术: 第10章 Spark API](https://github.com/shilinlee/blog/issues/21) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-08-30 00:07:50</sub> 
+  - [Spark快速大数据分析: 第9章 Spark SQL](https://github.com/shilinlee/blog/issues/27) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:48:44</sub> 
+ :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
+
+  - [Spark快速大数据分析: 第8章 Spark调优与调试](https://github.com/shilinlee/blog/issues/26) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:48:03</sub> 
+ :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
+
+  - [Spark快速大数据分析: 第7章 在集群上运行Spark](https://github.com/shilinlee/blog/issues/25) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-11-25 14:45:16</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
 ## 分类  :card_file_box: 
@@ -60,9 +60,15 @@
 </details>
 
 <details>
-<summary>Spark	<sup>15:newspaper:</sup></summary>
+<summary>Spark	<sup>21:newspaper:</sup></summary>
 
 
+- [Spark快速大数据分析: 第11章 基于MLlib的机器学习](https://github.com/shilinlee/blog/issues/29)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:50:28</sub> 
+- [Spark快速大数据分析: 第10章 Spark Streaming](https://github.com/shilinlee/blog/issues/28)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:49:47</sub> 
+- [Spark快速大数据分析: 第9章 Spark SQL](https://github.com/shilinlee/blog/issues/27)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:48:44</sub> 
+- [Spark快速大数据分析: 第8章 Spark调优与调试](https://github.com/shilinlee/blog/issues/26)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:48:03</sub> 
+- [Spark快速大数据分析: 第7章 在集群上运行Spark](https://github.com/shilinlee/blog/issues/25)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-25 14:45:16</sub> 
+- [Spark快速大数据分析: 第6章 Spark编程进阶](https://github.com/shilinlee/blog/issues/24)<sup>1 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-19 14:28:53</sub> 
 - [Spark快速大数据分析: 第5章 数据读取与保存](https://github.com/shilinlee/blog/issues/23)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-07 00:55:10</sub> 
 - [Spark内核设计的艺术: 第10章 Spark API](https://github.com/shilinlee/blog/issues/21)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-30 00:07:50</sub> 
 - [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
@@ -84,9 +90,15 @@
 </details>
 
 <details>
-<summary>大数据	<sup>22:newspaper:</sup></summary>
+<summary>大数据	<sup>28:newspaper:</sup></summary>
 
 
+- [Spark快速大数据分析: 第11章 基于MLlib的机器学习](https://github.com/shilinlee/blog/issues/29)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:50:28</sub> 
+- [Spark快速大数据分析: 第10章 Spark Streaming](https://github.com/shilinlee/blog/issues/28)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:49:47</sub> 
+- [Spark快速大数据分析: 第9章 Spark SQL](https://github.com/shilinlee/blog/issues/27)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:48:44</sub> 
+- [Spark快速大数据分析: 第8章 Spark调优与调试](https://github.com/shilinlee/blog/issues/26)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-12-01 23:48:03</sub> 
+- [Spark快速大数据分析: 第7章 在集群上运行Spark](https://github.com/shilinlee/blog/issues/25)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-25 14:45:16</sub> 
+- [Spark快速大数据分析: 第6章 Spark编程进阶](https://github.com/shilinlee/blog/issues/24)<sup>1 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-19 14:28:53</sub> 
 - [Spark快速大数据分析: 第5章 数据读取与保存](https://github.com/shilinlee/blog/issues/23)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-11-07 00:55:10</sub> 
 - [Spark内核设计的艺术: 第10章 Spark API](https://github.com/shilinlee/blog/issues/21)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-30 00:07:50</sub> 
 - [Spark内核设计的艺术: 第9章 部署模式](https://github.com/shilinlee/blog/issues/20)<sup>0 :speech_balloon:</sup> :alarm_clock:<sub>2019-08-27 00:51:38</sub> 
