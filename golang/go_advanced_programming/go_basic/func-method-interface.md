@@ -315,3 +315,112 @@ func (p *Cache) Lookup(key string) string {
 `Cache`结构体类型通过嵌入一个匿名的`sync.Mutex`来继承它的`Lock`和`Unlock`方法. 但是在调用`p.Lock()`和`p.Unlock()`时, `p`并不是`Lock`和`Unlock`方法的真正接收者, 而是会将它们展开为`p.Mutex.Lock()`和`p.Mutex.Unlock()`调用. 这种展开是编译期完成的, 并没有运行时代价.
 
 在传统的面向对象语言(eg.C++或Java)的继承中，子类的方法是在运行时动态绑定到对象的，因此基类实现的某些方法看到的`this`可能不是基类类型对应的对象，这个特性会导致基类方法运行的不确定性。而在Go语言通过嵌入匿名的成员来“继承”的基类方法，`this`就是实现该方法的类型的对象，Go语言中方法是编译时静态绑定的。如果需要虚函数的多态特性，我们需要借助Go语言接口来实现。
+
+## 3.3 接口
+
+Go的接口类型是对其它类型行为的抽象和概括；因为接口类型不会和特定的实现细节绑定在一起，通过这种抽象的方式我们可以让对象更加灵活和更具有适应能力。很多面向对象的语言都有相似的接口概念，但Go语言中接口类型的独特之处在于它是满足隐式实现的**鸭子类型**。所谓鸭子类型说的是：只要走起路来像鸭子、叫起来也像鸭子，那么就可以把它当作鸭子。Go语言中的面向对象就是如此，如果一个对象只要看起来像是某种接口类型的实现，那么它就可以作为该接口类型使用。这种设计可以让你创建一个新的接口类型满足已经存在的具体类型却不用去破坏这些类型原有的定义；当我们使用的类型来自于不受我们控制的包时这种设计尤其灵活有用。Go语言的接口类型是延迟绑定，可以实现类似**虚函数的多态功能**。
+
+接口在Go语言中无处不在，在“Hello world”的例子中，`fmt.Printf`函数的设计就是完全基于接口的，它的真正功能由`fmt.Fprintf`函数完成。用于表示错误的`error`类型更是内置的接口类型。在C语言中，`printf`只能将几种有限的基础数据类型打印到文件对象中。但是Go语言灵活接口特性，`fmt.Fprintf`却可以向任何自定义的输出流对象打印，可以打印到文件或标准输出、也可以打印到网络、甚至可以打印到一个压缩文件；同时，打印的数据也不仅仅局限于语言内置的基础类型，任意隐式满足`fmt.Stringer`接口的对象都可以打印，不满足`fmt.Stringer`接口的依然可以通过反射的技术打印。`fmt.Fprintf`函数的签名如下：
+
+```go
+func Fprintf(w io.Writer, format string, args ...interface{}) (int, error)
+```
+
+其中`io.Writer`用于输出的接口，`error`是内置的错误接口，**它们**的定义如下：
+
+```go
+type io.Writer interface {
+    Write(p []byte) (n int, err error)
+}
+
+type error interface {
+    Error() string
+}
+```
+
+我们可以通过定制自己的输出对象，将每个字符转为大写字符后输出：
+
+```go
+type UpperWriter struct {
+    io.Writer
+}
+
+func (p *UpperWriter) Write(data []byte) (n int, err error) {
+    return p.Writer.Write(bytes.ToUpper(data))
+}
+
+func main() {
+    fmt.Fprintln(&UpperWriter{os.Stdout}, "hello, world")
+}
+```
+
+当然，我们也可以定义自己的打印格式来实现将每个字符转为大写字符后输出的效果。对于每个要打印的对象，如果满足了`fmt.Stringer`接口，则默认使用对象的`String`方法返回的结果打印：
+
+```go
+type UpperString string
+
+func (s UpperString) String() string {
+    return strings.ToUpper(string(s))
+}
+
+// type fmt.Stringer interface {
+//    String() string
+//}
+
+func main() {
+    fmt.Fprintln(os.Stdout, UpperString("hello, world"))
+}
+```
+
+Go语言中，对于基础类型（非接口类型）不支持隐式的转换，我们无法将一个`int`类型的值直接赋值给`int64`类型的变量，也无法将`int`类型的值赋值给底层是`int`类型的新定义命名类型的变量。Go语言对基础类型的类型一致性要求可谓是非常的严格，但是Go语言对于接口类型的转换则非常的灵活。对象和接口之间的转换、接口和接口之间的转换都可能是隐式的转换。可以看下面的例子：
+
+```go
+var (
+    a io.ReadCloser = (*os.File)(f) // 隐式转换, *os.File 满足 io.ReadCloser 接口
+    b io.Reader     = a             // 隐式转换, io.ReadCloser 满足 io.Reader 接口
+    c io.Closer     = a             // 隐式转换, io.ReadCloser 满足 io.Closer 接口
+    d io.Reader     = c.(io.Reader) // 显式转换, io.Closer 不满足 io.Reader 接口
+)
+```
+
+有时候对象和接口之间太灵活了，导致我们需要人为地限制这种无意之间的适配。常见的做法是定义一个含特殊方法来区分接口。比如`runtime`包中的`Error`接口就定义了一个特有的`RuntimeError`方法，用于避免其它类型无意中适配了该接口：
+
+```go
+type runtime.Error interface {
+    error
+    // RuntimeError is a no-op function but
+    // serves to distinguish types that are run time
+    // errors from ordinary errors: a type is a
+    // run time error if it has a RuntimeError method.
+    RuntimeError()
+}
+```
+
+在protobuf中，`Message`接口也采用了类似的方法，也定义了一个特有的`ProtoMessage`，用于避免其它类型无意中适配了该接口：
+
+```go
+type proto.Message interface {
+    Reset()
+    String() string
+    ProtoMessage()
+}
+```
+
+不过这种做法只是君子协定，如果有人刻意伪造一个`proto.Message`接口也是很容易的。再严格一点的做法是给接口定义一个私有方法。只有满足了这个私有方法的对象才可能满足这个接口，而私有方法的名字是包含包的绝对路径名的，因此只能在包内部实现这个私有方法才能满足这个接口。测试包中的`testing.TB`接口就是采用类似的技术：
+
+```go
+type testing.TB interface {
+    Error(args ...interface{})
+    Errorf(format string, args ...interface{})
+    ...
+
+    // A private method to prevent users implementing the
+    // interface and so future additions to it will not
+    // violate Go 1 compatibility.
+    private()
+}
+```
+
+不过这种通过私有方法禁止外部对象实现接口的做法也是有代价的：首先是这个接口只能包内部使用，外部包正常情况下是无法直接创建满足该接口对象的；其次，这种防护措施也不是绝对的，恶意的用户依然可以绕过这种保护机制。
+
+在前面的方法一节中我们讲到，**通过在结构体中嵌入匿名类型成员，可以继承匿名类型的方法**。其实这个被嵌入的匿名成员不一定是普通类型，也可以是接口类型。我们可以通过嵌入匿名的`testing.TB`接口来伪造私有的`private`方法，因为接口方法是延迟绑定，编译时`private`方法是否真的存在并不重要。
