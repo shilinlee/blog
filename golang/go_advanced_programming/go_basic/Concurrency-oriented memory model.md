@@ -255,3 +255,104 @@ func main() {
 ```
 
 可以确定后台线程的`mu.Unlock()`必然在`println("你好, 世界")`完成后发生（同一个线程满足顺序一致性），`main`函数的第二个`mu.Lock()`必然在后台线程的`mu.Unlock()`之后发生（`sync.Mutex`保证），此时后台线程的打印工作已经顺利完成了。
+
+# 4.5 Goroutine的创建
+
+`go`语句会在当前Goroutine对应函数返回前创建新的Goroutine. 例如:
+
+```go
+var a string
+
+func f() {
+    print(a)
+}
+
+func hello() {
+    a = "hello, world"
+    go f()
+}
+```
+
+执行`go f()`语句创建Goroutine和`hello`函数是在同一个Goroutine中执行, 根据语句的书写顺序可以确定Goroutine的创建发生在`hello`函数返回之前, 但是新创建Goroutine对应的`f()`的执行事件和`hello`函数返回的事件则是不可排序的，也就是并发的。调用`hello`可能会在将来的某一时刻打印`"hello, world"`，也很可能是在`hello`函数执行完成后才打印。
+
+# 4.6 基于Channel的通信
+
+`Channel`通信是在Goroutine之间进行同步的主要方法。在无缓存的Channel上的每一次发送操作都有与其对应的接收操作相配对，发送和接收操作通常发生在不同的Goroutine上（在同一个Goroutine上执行2个操作很容易导致死锁）。**无缓存的Channel上的发送操作总在对应的接收操作完成前发生.**
+
+```go
+var done = make(chan bool)
+var msg string
+
+func aGoroutine() {
+    msg = "你好, 世界"
+    done <- true
+}
+
+func main() {
+    go aGoroutine()
+    <-done
+    println(msg)
+}
+```
+
+可保证打印出`你好, 世界`。该程序首先对`msg`进行写入，然后在`done`管道上发送同步信号，随后从`done`接收对应的同步信号，最后执行`println`函数。
+
+若在关闭Channel后继续从中接收数据，接收者就会收到该Channel返回的零值。因此在这个例子中，用`close(done)`关闭管道代替`done <- false`依然能保证该程序产生相同的行为。
+
+```go
+var done = make(chan bool)
+var msg string
+
+func aGoroutine() {
+    msg = "你好, 世界"
+    close(done)
+}
+
+func main() {
+    go aGoroutine()
+    <-done
+    println(msg)
+}
+```
+
+**对于从无缓冲Channel进行的接收，发生在对该Channel进行的发送完成之前。**
+
+基于上面这个规则可知，交换两个Goroutine中的接收和发送操作也是可以的（但是很危险）：
+
+```go
+var done = make(chan bool)
+var msg string
+
+func aGoroutine() {
+    msg = "hello, world"
+    <-done
+}
+func main() {
+    go aGoroutine()
+    done <- true
+    println(msg)
+}
+```
+
+也可保证打印出“hello, world”。因为`main`线程中`done <- true`发送完成前，后台线程`<-done`接收已经开始，这保证`msg = "hello, world"`被执行了，所以之后`println(msg)`的msg已经被赋值过了。简而言之，后台线程首先对`msg`进行写入，然后从`done`中接收信号，随后`main`线程向`done`发送对应的信号，最后执行`println`函数完成。但是，若该Channel为带缓冲的（例如，`done = make(chan bool, 1)`），`main`线程的`done <- true`接收操作将不会被后台线程的`<-done`接收操作阻塞，该程序将无法保证打印出“hello, world”。
+
+对于带缓冲的Channel，**对于Channel的第`K`个接收完成操作发生在第`K+C`个发送操作完成之前，其中`C`是Channel的缓存大小。** 如果将`C`设置为0自然就对应无缓存的Channel，也即使第K个接收完成在第K个发送完成之前。因为无缓存的Channel只能同步发1个，也就简化为前面无缓存Channel的规则：**对于从无缓冲Channel进行的接收，发生在对该Channel进行的发送完成之前。**
+
+我们可以根据控制Channel的缓存大小来控制并发执行的Goroutine的最大数目, 例如:
+
+```go
+var limit = make(chan int, 3)
+
+func main() {
+    for _, w := range work {
+        go func() {
+            limit <- 1
+            w()
+            <-limit
+        }()
+    }
+    select{}
+}
+```
+
+最后一句`select{}`是一个空的管道选择语句，该语句会导致`main`线程阻塞，从而避免程序过早退出。还有`for{}`、`<-make(chan int)`等诸多方法可以达到类似的效果。因为`main`线程被阻塞了，如果需要程序正常退出的话可以通过调用`os.Exit(0)`实现。
