@@ -130,3 +130,256 @@ func main() {
 ```
 
 其中`wg.Add(1)`用于增加等待事件的个数，必须确保在后台线程启动之前执行（如果放到后台线程之中执行则不能保证被正常执行到）。当后台线程完成打印工作之后，调用`wg.Done()`表示完成一个事件。`main`函数的`wg.Wait()`是等待全部的事件完成。
+
+# 5.3 生产者消费者模型
+
+并发编程中最常见的例子就是生产者消费者模式，该模式主要通过平衡生产线程和消费线程的工作能力来提高程序的整体处理数据的速度。简单地说，就是生产者生产一些数据，然后放到成果队列中，同时消费者从成果队列中来取这些数据。这样就让生产消费变成了异步的两个过程。当成果队列中没有数据时，消费者就进入饥饿的等待中；而当成果队列中数据已满时，生产者则面临因产品挤压导致CPU被剥夺的下岗问题。
+
+Go语言实现生产者消费者并发很简单：
+
+```go
+// 生产者: 生成 factor 整数倍的序列
+func Producer(factor int, out chan<- int) {
+    for i := 0; ; i++ {
+        out <- i*factor
+    }
+}
+
+// 消费者
+func Consumer(in <-chan int) {
+    for v := range in {
+        fmt.Println(v)
+    }
+}
+func main() {
+    ch := make(chan int, 64) // 成果队列
+
+    go Producer(3, ch) // 生成 3 的倍数的序列
+    go Producer(5, ch) // 生成 5 的倍数的序列
+    go Consumer(ch)    // 消费 生成的队列
+
+    // 运行一定时间后退出
+    time.Sleep(5 * time.Second)
+}
+```
+
+我们开启了2个`Producer`生产流水线，分别用于生成3和5的倍数的序列。然后开启1个`Consumer`消费者线程，打印获取的结果。我们通过在`main`函数休眠一定的时间来让生产者和消费者工作一定时间。正如前面一节说的，这种靠休眠方式是无法保证稳定的输出结果的。
+
+我们可以让`main`函数保存阻塞状态不退出，只有当用户输入`Ctrl-C`时才真正退出程序：
+
+```go
+func main() {
+    ch := make(chan int, 64) // 成果队列
+
+    go Producer(3, ch) // 生成 3 的倍数的序列
+    go Producer(5, ch) // 生成 5 的倍数的序列
+    go Consumer(ch)    // 消费 生成的队列
+
+    // Ctrl+C 退出
+    sig := make(chan os.Signal, 1)
+    signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
+    fmt.Printf("quit (%v)\n", <-sig)
+}
+```
+
+我们这个例子中有2个生产者，并且2个生产者之间并无同步事件可参考，它们是并发的。因此，消费者输出的结果序列的顺序是不确定的，这并没有问题，生产者和消费者依然可以相互配合工作。
+
+# 5.4 发布订阅模型
+
+发布订阅（publish-and-subscribe）模型通常被简写为pub/sub模型。在这个模型中，消息生产者成为发布者（publisher），而消息消费者则成为订阅者（subscriber），生产者和消费者是M:N的关系。在传统生产者和消费者模型中，是将消息发送到一个队列中，而发布订阅模型则是将消息发布给一个主题。
+
+为此，我们构建了一个名为`pubsub`的发布订阅模型支持包：
+
+```go
+// Package pubsub implements a simple multi-topic pub-sub library.
+package pubsub
+
+import (
+    "sync"
+    "time"
+)
+
+type (
+    subscriber chan interface{}         // 订阅者为一个管道
+    topicFunc  func(v interface{}) bool // 主题为一个过滤器
+)
+
+// 发布者对象
+type Publisher struct {
+    m           sync.RWMutex             // 读写锁
+    buffer      int                      // 订阅队列的缓存大小
+    timeout     time.Duration            // 发布超时时间
+    subscribers map[subscriber]topicFunc // 订阅者信息
+}
+
+// 构建一个发布者对象, 可以设置发布超时时间和缓存队列的长度
+func NewPublisher(publishTimeout time.Duration, buffer int) *Publisher {
+    return &Publisher{
+        buffer:      buffer,
+        timeout:     publishTimeout,
+        subscribers: make(map[subscriber]topicFunc),
+    }
+}
+
+// 添加一个新的订阅者，订阅全部主题
+func (p *Publisher) Subscribe() chan interface{} {
+    return p.SubscribeTopic(nil)
+}
+
+// 添加一个新的订阅者，订阅过滤器筛选后的主题
+func (p *Publisher) SubscribeTopic(topic topicFunc) chan interface{} {
+    ch := make(chan interface{}, p.buffer)
+    p.m.Lock()
+    p.subscribers[ch] = topic
+    p.m.Unlock()
+    return ch
+}
+
+// 退出订阅
+func (p *Publisher) Evict(sub chan interface{}) {
+    p.m.Lock()
+    defer p.m.Unlock()
+
+    delete(p.subscribers, sub)
+    close(sub)
+}
+
+// 发布一个主题
+func (p *Publisher) Publish(v interface{}) {
+    p.m.RLock()
+    defer p.m.RUnlock()
+
+    var wg sync.WaitGroup
+    for sub, topic := range p.subscribers {
+        wg.Add(1)
+        go p.sendTopic(sub, topic, v, &wg)
+    }
+    wg.Wait()
+}
+
+// 关闭发布者对象，同时关闭所有的订阅者管道。
+func (p *Publisher) Close() {
+    p.m.Lock()
+    defer p.m.Unlock()
+
+    for sub := range p.subscribers {
+        delete(p.subscribers, sub)
+        close(sub)
+    }
+}
+
+// 发送主题，可以容忍一定的超时
+func (p *Publisher) sendTopic(
+    sub subscriber, topic topicFunc, v interface{}, wg *sync.WaitGroup,
+) {
+    defer wg.Done()
+    if topic != nil && !topic(v) {
+        return
+    }
+
+    select {
+    case sub <- v:
+    case <-time.After(p.timeout):
+    }
+}
+```
+
+下面的例子中，有两个订阅者分别订阅了全部主题和含有"golang"的主题：
+
+```go
+import "path/to/pubsub"
+
+func main() {
+    p := pubsub.NewPublisher(100*time.Millisecond, 10)
+    defer p.Close()
+
+    all := p.Subscribe()
+    golang := p.SubscribeTopic(func(v interface{}) bool {
+        if s, ok := v.(string); ok {
+            return strings.Contains(s, "golang")
+        }
+        return false
+    })
+
+    p.Publish("hello,  world!")
+    p.Publish("hello, golang!")
+
+    go func() {
+        for  msg := range all {
+            fmt.Println("all:", msg)
+        }
+    } ()
+
+    go func() {
+        for  msg := range golang {
+            fmt.Println("golang:", msg)
+        }
+    } ()
+
+    // 运行一定时间后退出
+    time.Sleep(3 * time.Second)
+}
+```
+
+在发布订阅模型中，每条消息都会传送给多个订阅者。发布者通常不会知道、也不关心哪一个订阅者正在接收主题消息。订阅者和发布者可以在运行时动态添加，是一种松散的耦合关系，这使得系统的复杂性可以随时间的推移而增长。在现实生活中，像天气预报之类的应用就可以应用这个并发模式。
+
+# 5.5 控制并发数
+
+很多用户在适应了Go语言强大的并发特性之后，都倾向于编写最大并发的程序，因为这样似乎可以提供最大的性能。在现实中我们行色匆匆，但有时却需要我们放慢脚步享受生活，并发的程序也是一样：有时候我们需要适当地控制并发的程度，因为这样不仅仅可给其它的应用/任务让出/预留一定的CPU资源，也可以适当降低功耗缓解电池的压力。
+
+在Go语言自带的godoc程序实现中有一个`vfs`的包对应虚拟的文件系统，在`vfs`包下面有一个`gatefs`的子包，`gatefs`子包的目的就是为了控制访问该虚拟文件系统的最大并发数。`gatefs`包的应用很简单：
+
+```go
+import (
+    "golang.org/x/tools/godoc/vfs"
+    "golang.org/x/tools/godoc/vfs/gatefs"
+)
+
+func main() {
+    fs := gatefs.New(vfs.OS("/path"), make(chan bool, 8))
+    // ...
+}
+```
+
+其中`vfs.OS("/path")`基于本地文件系统构造一个虚拟的文件系统，然后`gatefs.New`基于现有的虚拟文件系统构造一个并发受控的虚拟文件系统。并发数控制的原理在前面一节已经讲过，就是**通过带缓存管道的发送和接收规则**来实现**最大并发阻塞**：
+
+```go
+var limit = make(chan int, 3)
+
+func main() {
+    for _, w := range work {
+        go func() {
+            limit <- 1
+            w()
+            <-limit
+        }()
+    }
+    select{}
+}
+```
+
+不过`gatefs`对此做一个抽象类型`gate`，增加了`enter`和`leave`方法分别对应并发代码的进入和离开。当超出并发数目限制的时候，`enter`方法会阻塞直到并发数降下来为止。
+
+```go
+type gate chan bool
+
+func (g gate) enter() { g <- true }
+func (g gate) leave() { <-g }
+```
+
+`gatefs`包装的新的虚拟文件系统就是将需要控制并发的方法增加了`enter`和`leave`调用而已：
+
+```go
+type gatefs struct {
+    fs vfs.FileSystem
+    gate
+}
+
+func (fs gatefs) Lstat(p string) (os.FileInfo, error) {
+    fs.enter()
+    defer fs.leave()
+    return fs.fs.Lstat(p)
+}
+```
+
+我们不仅可以控制最大的并发数目，而且可以通过带缓存Channel的使用量和最大容量比例来判断程序运行的并发率。当管道为空的时候可以认为是空闲状态，当管道满了时任务是繁忙状态，这对于后台一些低级任务的运行是有参考价值的。
