@@ -383,3 +383,230 @@ func (fs gatefs) Lstat(p string) (os.FileInfo, error) {
 ```
 
 我们不仅可以控制最大的并发数目，而且可以通过带缓存Channel的使用量和最大容量比例来判断程序运行的并发率。当管道为空的时候可以认为是空闲状态，当管道满了时任务是繁忙状态，这对于后台一些低级任务的运行是有参考价值的。
+
+# 5.6 赢者为王
+采用并发编程的动机有很多：并发编程可以简化问题，比如一类问题对应一个处理线程会更简单；并发编程还可以提升性能，在一个多核CPU上开2个线程一般会比开1个线程快一些。其实对于提升性能而言，程序并不是简单地运行速度快就表示用户体验好的；很多时候程序能快速响应用户请求才是最重要的，当没有用户请求需要处理的时候才合适处理一些低优先级的后台任务。
+
+假设我们想快速地搜索“golang”相关的主题，我们可能会同时打开Bing、Google或百度等多个检索引擎。当某个搜索最先返回结果后，就可以关闭其它搜索页面了。因为受网络环境和搜索引擎算法的影响，某些搜索引擎可能很快返回搜索结果，某些搜索引擎也可能等到他们公司倒闭也没有完成搜索。我们可以采用类似的策略来编写这个程序： 
+
+```go
+func main() {
+    ch := make(chan string, 32)
+
+    go func() {
+        ch <- searchByBing("golang")
+    }()
+    go func() {
+        ch <- searchByGoogle("golang")
+    }()
+    go func() {
+        ch <- searchByBaidu("golang")
+    }()
+
+    fmt.Println(<-ch)
+}
+```
+
+首先，我们创建了一个带缓存的管道，管道的缓存数目要足够大，保证不会因为缓存的容量引起不必要的阻塞。然后我们开启了多个后台线程，分别向不同的搜索引擎提交搜索请求。当任意一个搜索引擎最先有结果之后，都会马上将结果发到管道中（因为管道带了足够的缓存，这个过程不会阻塞）。但是最终我们只从管道取第一个结果，也就是最先返回的结果。
+
+通过适当开启一些冗余的线程，尝试用不同途径去解决同样的问题，最终以赢者为王的方式提升了程序的相应性能。
+
+# 5.7 素数筛
+
+并发版本的素数筛是一个经典的并发例子，通过它我们可以更深刻地理解Go语言的并发特性。“素数筛”的原理如图：
+
+![image](https://user-images.githubusercontent.com/22270117/70286624-e50e2000-1806-11ea-8b53-76a5cfc894ae.png)
+
+我们需要先生成最初的`2, 3, 4, ...`自然数序列（不包含开头的0、1）：
+
+```go
+// 返回生成自然数序列的管道: 2, 3, 4, ...
+func GenerateNatural() chan int {
+    ch := make(chan int)
+    go func() {
+        for i := 2; ; i++ {
+            ch <- i
+        }
+    }()
+    return ch
+}
+```
+
+`GenerateNatural`函数内部启动一个Goroutine生产序列，返回对应的管道。
+
+然后是为每个素数构造一个筛子：将输入序列中是素数倍数的数提出，并返回新的序列，是一个新的管道。
+
+```go
+// 管道过滤器: 删除能被素数整除的数
+func PrimeFilter(in <-chan int, prime int) chan int {
+    out := make(chan int)
+    go func() {
+        for {
+            if i := <-in; i%prime != 0 {
+                out <- i
+            }
+        }
+    }()
+    return out
+}
+```
+
+`PrimeFilter`函数也是内部启动一个Goroutine生产序列，返回过滤后序列对应的管道。
+
+现在我们可以在`main`函数中驱动这个并发的素数筛了：
+
+```go
+func main() {
+    ch := GenerateNatural() // 自然数序列: 2, 3, 4, ...
+    for i := 0; i < 100; i++ {
+        prime := <-ch // 新出现的素数
+        fmt.Printf("%v: %v\n", i+1, prime)
+        ch = PrimeFilter(ch, prime) // 基于新素数构造的过滤器
+    }
+}
+```
+
+我们先是调用`GenerateNatural()`生成最原始的从2开始的自然数序列。然后开始一个100次迭代的循环，希望生成100个素数。在每次循环迭代开始的时候，管道中的第一个数必定是素数，我们先读取并打印这个素数。然后基于管道中剩余的数列，并以当前取出的素数为筛子过滤后面的素数。不同的素数筛子对应的管道是串联在一起的。
+
+素数筛展示了一种优雅的并发程序结构。但是因为每个并发体处理的任务粒度太细微，程序整体的性能并不理想。对于细粒度的并发程序，CSP模型中固有的消息传递的代价太高了（多线程并发模型同样要面临线程启动的代价）。
+
+# 5.8 并发的安全退出
+
+有时候我们需要通知goroutine停止它正在干的事情，特别是当它工作在错误的方向上的时候。Go语言并没有提供在一个直接终止Goroutine的方法，由于这样会导致goroutine之间的共享变量处在未定义的状态上。但是如果我们想要退出两个或者任意多个Goroutine怎么办呢？
+
+Go语言中不同Goroutine之间主要依靠管道进行通信和同步。要同时处理多个管道的发送或接收操作，我们需要使用`select`关键字（这个关键字和网络编程中的`select`函数的行为类似）。当`select`有多个分支时，会随机选择一个可用的管道分支，如果没有可用的管道分支则选择`default`分支，否则会一直保存阻塞状态。
+
+基于`select`实现的管道的超时判断：
+
+```go
+select {
+    case v := <-in:
+        fmt.Println(v)
+    case <-time.After(time.Second):
+        return // 超时
+}
+```
+
+通过`select`的`default`分支实现非阻塞的管道发送或接收操作：
+
+```go
+select {
+    case v := <-in:
+        fmt.Println(v)
+    default:
+        // 没有数据
+}
+```
+
+通过`select`来阻止`main`函数退出：
+
+```go
+func main() {
+    // do some this
+    select{}
+}
+```
+
+当有多个管道均可操作时，`select`会随机选择一个管道。基于该特性我们可以用`select`实现一个生成随机数序列的程序：
+
+```go
+func main() {
+    ch := make(chan int)
+    go func() {
+        for {
+            select {
+            case ch <- 0:
+            case ch <- 1:
+            }
+        }
+    }()
+
+    for v := range ch {
+        fmt.Println(v)
+    }
+}
+```
+
+我们通过`select`和`default`分支可以很容易实现一个Goroutine的退出控制:
+
+```go
+func worker(cannel chan bool) {
+    for {
+        select {
+        default:
+            fmt.Println("hello")
+            // 正常工作
+        case <-cannel:
+            // 退出
+        }
+    }
+}
+
+func main() {
+    cannel := make(chan bool)
+    go worker(cannel)
+
+    time.Sleep(time.Second)
+    cannel <- true
+}
+```
+
+但是管道的发送操作和接收操作是一一对应的，如果要停止多个Goroutine那么可能需要创建同样数量的管道，这个代价太大了。其实我们可以通过`close`关闭一个管道来实现广播的效果，所有从关闭管道接收的操作均会收到一个零值和一个可选的失败标志。
+
+```go
+func worker(cannel chan bool) {
+    for {
+        select {
+        default:
+            fmt.Println("hello")
+            // 正常工作
+        case <-cannel:
+            // 退出
+        }
+    }
+}
+
+func main() {
+    cancel := make(chan bool)
+
+    for i := 0; i < 10; i++ {
+        go worker(cancel)
+    }
+
+    time.Sleep(time.Second)
+    close(cancel)
+}
+```
+
+我们通过`close`来关闭`cancel`管道向多个Goroutine广播退出的指令。不过这个程序依然不够稳健：当每个Goroutine收到退出指令退出时一般会进行一定的清理工作，但是退出的清理工作并不能保证被完成，因为`main`线程并没有等待各个工作Goroutine退出工作完成的机制。我们可以结合`sync.WaitGroup`来改进:
+
+```go
+func worker(wg *sync.WaitGroup, cannel chan bool) {
+    defer wg.Done()
+
+    for {
+        select {
+        default:
+            fmt.Println("hello")
+        case <-cannel:
+            return
+        }
+    }
+}
+
+func main() {
+    cancel := make(chan bool)
+
+    var wg sync.WaitGroup
+    for i := 0; i < 10; i++ {
+        wg.Add(1)
+        go worker(&wg, cancel)
+    }
+
+    time.Sleep(time.Second)
+    close(cancel)
+    wg.Wait()
+}
+```
+
+现在每个工作者并发体的创建、运行、暂停和退出都是在`main`函数的安全控制之下了。
