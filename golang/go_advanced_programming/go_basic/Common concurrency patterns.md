@@ -385,6 +385,7 @@ func (fs gatefs) Lstat(p string) (os.FileInfo, error) {
 我们不仅可以控制最大的并发数目，而且可以通过带缓存Channel的使用量和最大容量比例来判断程序运行的并发率。当管道为空的时候可以认为是空闲状态，当管道满了时任务是繁忙状态，这对于后台一些低级任务的运行是有参考价值的。
 
 # 5.6 赢者为王
+
 采用并发编程的动机有很多：并发编程可以简化问题，比如一类问题对应一个处理线程会更简单；并发编程还可以提升性能，在一个多核CPU上开2个线程一般会比开1个线程快一些。其实对于提升性能而言，程序并不是简单地运行速度快就表示用户体验好的；很多时候程序能快速响应用户请求才是最重要的，当没有用户请求需要处理的时候才合适处理一些低优先级的后台任务。
 
 假设我们想快速地搜索“golang”相关的主题，我们可能会同时打开Bing、Google或百度等多个检索引擎。当某个搜索最先返回结果后，就可以关闭其它搜索页面了。因为受网络环境和搜索引擎算法的影响，某些搜索引擎可能很快返回搜索结果，某些搜索引擎也可能等到他们公司倒闭也没有完成搜索。我们可以采用类似的策略来编写这个程序： 
@@ -610,3 +611,93 @@ func main() {
 ```
 
 现在每个工作者并发体的创建、运行、暂停和退出都是在`main`函数的安全控制之下了。
+
+# 5.9 context包
+
+在Go1.7发布时，标准库增加了一个`context`包，用来简化对于处理单个请求的多个Goroutine之间与请求域的数据、超时和退出等操作，官方有博文对此做了专门介绍。我们可以用`context`包来重新实现前面的线程安全退出或超时的控制:
+
+```go
+func worker(ctx context.Context, wg *sync.WaitGroup) error {
+    defer wg.Done()
+
+    for {
+        select {
+        default:
+            fmt.Println("hello")
+        case <-ctx.Done():
+            return ctx.Err()
+        }
+    }
+}
+
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+
+    var wg sync.WaitGroup
+    for i := 0; i < 10; i++ {
+        wg.Add(1)
+        go worker(ctx, &wg)
+    }
+
+    time.Sleep(time.Second)
+    cancel()
+
+    wg.Wait()
+}
+```
+
+当并发体超时或`main`主动停止工作者Goroutine时，每个工作者都可以安全退出。
+
+Go语言是带内存自动回收特性的，因此内存一般不会泄漏。在前面素数筛的例子中，`GenerateNatural`和`PrimeFilter`函数内部都启动了新的Goroutine，当`main`函数不再使用管道时后台Goroutine有泄漏的风险。我们可以通过`context`包来避免这个问题，下面是改进的素数筛实现：
+
+```go
+// 返回生成自然数序列的管道: 2, 3, 4, ...
+func GenerateNatural(ctx context.Context) chan int {
+    ch := make(chan int)
+    go func() {
+        for i := 2; ; i++ {
+            select {
+            case <- ctx.Done():
+                return
+            case ch <- i:
+            }
+        }
+    }()
+    return ch
+}
+
+// 管道过滤器: 删除能被素数整除的数
+func PrimeFilter(ctx context.Context, in <-chan int, prime int) chan int {
+    out := make(chan int)
+    go func() {
+        for {
+            if i := <-in; i%prime != 0 {
+                select {
+                case <- ctx.Done():
+                    return
+                case out <- i:
+                }
+            }
+        }
+    }()
+    return out
+}
+
+func main() {
+    // 通过 Context 控制后台Goroutine状态
+    ctx, cancel := context.WithCancel(context.Background())
+
+    ch := GenerateNatural(ctx) // 自然数序列: 2, 3, 4, ...
+    for i := 0; i < 100; i++ {
+        prime := <-ch // 新出现的素数
+        fmt.Printf("%v: %v\n", i+1, prime)
+        ch = PrimeFilter(ctx, ch, prime) // 基于新素数构造的过滤器
+    }
+
+    cancel()
+}
+```
+
+当main函数完成工作前，通过调用`cancel()`来通知后台Goroutine退出，这样就避免了Goroutine的泄漏。
+
+并发是一个非常大的主题，我们这里只是展示几个非常基础的并发编程的例子。官方文档也有很多关于并发编程的讨论，国内也有专门讨论Go语言并发编程的书籍。读者可以根据自己的需求查阅相关的文献。
