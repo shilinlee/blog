@@ -1,7 +1,7 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2020-11-19 08:10:34
+> :alarm_clock: 上次更新: 2020-11-20 08:10:31
     
 共 [5](https://github.com/shilinlee/blog/labels) 个标签, [29](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
@@ -127,7 +127,7 @@
 </details>
 
 ## 关于
-:round_pushpin: 杭州，浙江 
+:round_pushpin: 成都，四川 
 
 :black_flag: None 
 
