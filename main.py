@@ -56,6 +56,7 @@ def bundle_summary_section():
     issues_html_url = 'https://github.com/%s/blog/issues' % user.get_user().login
 
     summary_section = '''
+# 雷蕾
 # GitHub Issues Blog
     
 > :alarm_clock: 上次更新: %s
