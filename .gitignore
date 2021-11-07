@@ -23,6 +23,7 @@ scripts
 .python-version
 .env
 .ipynb_checkpoints*
+.idea
 
 # 大数据集
 departuredelays.csv
