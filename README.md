@@ -1,10 +1,13 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2022-08-09 08:06:40
+> :alarm_clock: 上次更新: 2022-08-10 08:06:34
     
-共 [6](https://github.com/shilinlee/blog/labels) 个标签, [30](https://github.com/shilinlee/blog/issues) 篇博文.
+共 [6](https://github.com/shilinlee/blog/labels) 个标签, [31](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
+  - [Rust 编程第一课: 所有权](https://github.com/shilinlee/blog/issues/32) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2022-08-09 11:46:05</sub> 
+ :label: 	<sub>|</sub>
+
   - [编译原理实战课: 编译的全过程都悄悄做了哪些事情？](https://github.com/shilinlee/blog/issues/31) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2022-08-07 10:12:47</sub> 
  :label: 	<sub>|</sub><sub>[编译原理](https://github.com/shilinlee/blog/labels/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86)	|	</sub>
 
@@ -15,9 +18,6 @@
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
   - [Spark快速大数据分析: 第9章 Spark SQL](https://github.com/shilinlee/blog/issues/27) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:48:44</sub> 
- :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
-
-  - [Spark快速大数据分析: 第8章 Spark调优与调试](https://github.com/shilinlee/blog/issues/26) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:48:03</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
 ## 分类  :card_file_box: 
