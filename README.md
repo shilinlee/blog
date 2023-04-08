@@ -1,10 +1,13 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2023-04-07 08:06:44
+> :alarm_clock: 上次更新: 2023-04-08 08:06:43
     
-共 [6](https://github.com/shilinlee/blog/labels) 个标签, [31](https://github.com/shilinlee/blog/issues) 篇博文.
+共 [6](https://github.com/shilinlee/blog/labels) 个标签, [32](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
+  - [Automatically clean up expired schema data](https://github.com/shilinlee/blog/issues/33) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2023-04-07 07:26:29</sub> 
+ :label: 	<sub>|</sub>
+
   - [Rust 编程第一课: 所有权](https://github.com/shilinlee/blog/issues/32) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2022-08-09 11:46:05</sub> 
  :label: 	<sub>|</sub>
 
@@ -15,9 +18,6 @@
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
   - [Spark快速大数据分析: 第10章 Spark Streaming](https://github.com/shilinlee/blog/issues/28) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:49:47</sub> 
- :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
-
-  - [Spark快速大数据分析: 第9章 Spark SQL](https://github.com/shilinlee/blog/issues/27) <sup>0 :speech_balloon:</sup>  			 :alarm_clock:<sub>2019-12-01 23:48:44</sub> 
  :label: 	<sub>|</sub><sub>[Spark](https://github.com/shilinlee/blog/labels/Spark)	|	</sub><sub>[大数据](https://github.com/shilinlee/blog/labels/%E5%A4%A7%E6%95%B0%E6%8D%AE)	|	</sub>
 
 ## 分类  :card_file_box: 
