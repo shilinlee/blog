@@ -1,7 +1,7 @@
 
 # GitHub Issues Blog
     
-> :alarm_clock: 上次更新: 2023-04-16 08:06:48
+> :alarm_clock: 上次更新: 2023-04-17 08:06:38
     
 共 [6](https://github.com/shilinlee/blog/labels) 个标签, [32](https://github.com/shilinlee/blog/issues) 篇博文.
 ## 最新 :new: 
@@ -139,5 +139,5 @@
 ## 关于
 :round_pushpin: 成都，四川 
 
-:black_flag: None 
+:black_flag: wechat: shilinlee_com 
 
