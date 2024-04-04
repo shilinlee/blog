@@ -4,19 +4,19 @@ layout: BlogHome
 icon: home
 title: 博客主页
 heroImage: https://theme-hope-assets.vuejs.press/logo.svg
-heroText: 你博客的名称
+heroText: shilinlee的博客
 heroFullScreen: true
-tagline: 你可以在这里放置你的口号与标语
+tagline: 一个程序员，熟悉Python、Go和数据库
 projects:
   - icon: project
-    name: 项目名称
-    desc: 项目详细描述
-    link: https://你的项目链接
+    name: openGemini
+    desc: 专注海量时序数据存储和分析，一个高性能、高可靠、高扩展、低成本的分布式时序数据库管理系统
+    link: https://github.com/openGemini/openGemini
 
   - icon: link
-    name: 链接名称
-    desc: 链接详细描述
-    link: https://链接地址
+    name: 初学者的生成式AI
+    desc: 微软云技术课程：学生成 AI 应用基础，创办初创公司。
+    link: https://shilinlee.com/AI
 
   - icon: book
     name: 书籍名称
@@ -41,8 +41,5 @@ projects:
 footer: 自定义你的页脚文字
 ---
 
-这是一个博客主页的案例。
-
-要使用此布局，你应该在页面前端设置 `layout: BlogHome` 和 `home: true`。
-
+<!-- 要使用此布局，你应该在页面前端设置 `layout: BlogHome` 和 `home: true`。-->
 相关配置文档请见 [博客主页](https://theme-hope.vuejs.press/zh/guide/blog/home/)。

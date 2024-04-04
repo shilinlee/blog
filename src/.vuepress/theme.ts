@@ -4,18 +4,18 @@ import sidebar from "./sidebar.js";
 import { MR_HOPE_AVATAR } from "./logo.js";
 
 export default hopeTheme({
-  hostname: "https://mister-hope.github.io",
+  hostname: "https://shilinlee.com",
 
   author: {
-    name: "Mr.Hope",
-    url: "https://mister-hope.com",
+    name: "shilinlee",
+    url: "https://shilinlee.com",
   },
 
   iconAssets: "fontawesome-with-brands",
 
   logo: "https://theme-hope-assets.vuejs.press/logo.svg",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  repo: "shilinlee/blog",
 
   docsDir: "src",
 
@@ -31,7 +31,7 @@ export default hopeTheme({
 
   // 博客相关
   blog: {
-    description: "一个前端开发者",
+    description: "一个后端开发者",
     intro: "/intro.html",
     medias: {
       Baidu: "https://example.com",
@@ -44,8 +44,8 @@ export default hopeTheme({
       Evernote: "https://example.com",
       Facebook: "https://example.com",
       Flipboard: "https://example.com",
-      Gitee: "https://example.com",
-      GitHub: "https://example.com",
+      Gitee: "https://gitee.com/shilinlee",
+      GitHub: "https://github.com/shilinlee",
       Gitlab: "https://example.com",
       Gmail: "mailto:info@example.com",
       Instagram: "https://example.com",
