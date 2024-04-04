@@ -18,7 +18,7 @@ tag:
   - 人月神话
   - 软件项目管理之道
 # 此页面会在文章列表置顶
-sticky: true
+sticky: false
 # 此页面会出现在星标文章中
 star: true
 ---

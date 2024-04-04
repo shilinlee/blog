@@ -3,7 +3,7 @@ icon: pen-to-square
 date: 2024-04-04
 category:
   - 语言
-  - "CPP"
+  - CPP
 tag:
   - 初学者
   - 入门
