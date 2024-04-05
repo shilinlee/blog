@@ -40,14 +40,14 @@ export default hopeTheme({
       // Dingding: "https://example.com",
       // Discord: "https://example.com",
       // Dribbble: "https://example.com",
-      // Email: "mailto:info@shilinlee.ghost@gmail.com",
+      // Email: "mailto:shilinlee.ghost@gmail.com",
       // Evernote: "https://example.com",
       // Facebook: "https://example.com",
       // Flipboard: "https://example.com",
       Gitee: "https://gitee.com/shilinlee",
       GitHub: "https://github.com/shilinlee",
       // Gitlab: "https://example.com",
-      Gmail: "mailto:info@shilinlee.ghost@gmail.com",
+      Gmail: "mailto:shilinlee.ghost@gmail.com",
       // Instagram: "https://example.com",
       // Lark: "https://example.com",
       // Lines: "https://example.com",
@@ -88,12 +88,25 @@ export default hopeTheme({
   plugins: {
     blog: true,
 
-    // 启用之前需安装 @waline/client
-    // 警告: 这是一个仅供演示的测试服务，在生产环境中请自行部署并使用自己的服务！
-    // comment: {
-    //   provider: "Waline",
-    //   serverURL: "https://waline-comment.vuejs.press",
-    // },
+    // // 启用之前需安装 @waline/client
+    // // 警告: 这是一个仅供演示的测试服务，在生产环境中请自行部署并使用自己的服务！
+    comment: {
+      provider: "Giscus",
+        repo: "shilinlee/blog",
+        repoId: "MDEwOlJlcG9zaXRvcnkxMTQ0NDMxNTY=",
+        category: "Comments",
+        categoryId:"DIC_kwDOBtJDlM4Cec66",
+    },
+
+    // comment: commentPlugin({
+    //   // 选项
+    //   provider: "Giscus",
+    //   repo: "shilinlee/blog",
+    //   repoId: "MDEwOlJlcG9zaXRvcnkxMTQ0NDMxNTY=",
+    //   category: "Comments",
+    //   categoryId:"DIC_kwDOBtJDlM4Cec66",
+    // }),
+
 
     components: {
       components: ["Badge", "VPCard"],
