@@ -1,4 +1,5 @@
 ---
+cover: /assets/images/cpp.png
 icon: pen-to-square
 date: 2024-04-04
 category:

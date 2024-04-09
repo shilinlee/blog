@@ -2,6 +2,8 @@
 title: 简历
 icon: circle-info
 cover: /assets/images/cover3.jpg
+# 此页面会出现在星标文章中
+star: true
 ---
 
 ##  个人优势
