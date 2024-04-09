@@ -19,6 +19,11 @@ export default hopeTheme({
 
   docsDir: "src",
 
+  // fullscreen: true, // TODO: 全屏按钮
+
+  // 纯净模式
+  // pure: true,
+
   // 导航栏
   navbar,
 
