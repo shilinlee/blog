@@ -1,4 +1,5 @@
 ---
+cover: /assets/images/spark_rdd.png
 title: "Spark系列: 深入理解RDD"
 icon: pen-to-square
 date: 2019-01-28
@@ -9,6 +10,15 @@ tag:
   - 入门
   - RDD
 ---
+
+[RDD](http://people.csail.mit.edu/matei/papers/2012/nsdi_spark.pdf)的全称是：Resilient Distributed Dataset （弹性分布式数据集），它有几个关键的特性：
+
+- RDD是只读的，表示它的不可变性。
+- 可以并行的操作分区集合上的所有元素。
+- 天生具有容错机制的特殊集。
+- 只能通过在稳定的存储器或其他RDD上的确定性操作（转换）来创建。
+
+<!-- more -->
 
 ## RDD介绍
 
