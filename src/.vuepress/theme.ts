@@ -11,8 +11,6 @@ export default hopeTheme({
     url: "https://shilinlee.com",
   },
 
-  iconAssets: "fontawesome-with-brands",
-
   logo: "https://theme-hope-assets.vuejs.press/logo.svg",
 
   repo: "shilinlee/blog",
@@ -36,7 +34,7 @@ export default hopeTheme({
 
   // 博客相关
   blog: {
-    description: "一个后端开发者",
+    description: "一位技术发烧友",
     intro: "/intro.html",
     medias: {
       // Baidu: "https://example.com",
@@ -70,7 +68,7 @@ export default hopeTheme({
       // Whatsapp: "https://example.com",
       // Youtube: "https://example.com",
       // Zhihu: "https://example.com",
-      shilinlee: ["https://shilinlee.com", MR_HOPE_AVATAR],
+      // shilinlee: ["https://shilinlee.com", MR_HOPE_AVATAR],
     },
   },
 
@@ -88,6 +86,75 @@ export default hopeTheme({
 
   // 如果想要实时查看任何改变，启用它。注: 这对更新性能有很大负面影响
   // hotReload: true,
+  fullscreen: true, 
+  // markdown 相关
+  markdown: {
+    markmap: true, // 启用 markmap
+    align: true,
+    attrs: true,
+    component: true,
+    demo: true,
+    figure: true,
+    imgLazyload: true,
+    imgSize: true,
+    include: true,
+    mark: true,
+    stylize: [
+      {
+        matcher: "Recommended",
+        replacer: ({ tag }) => {
+          if (tag === "em")
+            return {
+              tag: "Badge",
+              attrs: { type: "tip" },
+              content: "Recommended",
+            };
+        },
+      },
+    ],
+    sub: true,
+    sup: true,
+    tabs: true,
+    vPre: true,
+
+    // 在启用之前安装 chart.js
+    // chart: true,
+
+    // insert component easily
+
+    // 在启用之前安装 echarts
+    // echarts: true,
+
+    // 在启用之前安装 flowchart.ts
+    // flowchart: true,
+
+    // gfm requires mathjax-full to provide tex support
+    // gfm: true,
+
+    // 在启用之前安装 katex
+    // katex: true,
+
+    // 在启用之前安装 mathjax-full
+    // mathjax: true,
+
+    // 在启用之前安装 mermaid
+    // mermaid: true,
+
+    // playground: {
+    //   presets: ["ts", "vue"],
+    // },
+
+    // 在启用之前安装 reveal.js
+    // revealJs: {
+    //   plugins: ["highlight", "math", "search", "notes", "zoom"],
+    // },
+
+    // 在启用之前安装 @vue/repl
+    // vuePlayground: true,
+
+    // install sandpack-vue3 before enabling it
+    // sandpack: true,
+  },
 
   // 在这里配置主题提供的插件
   plugins: {
@@ -103,6 +170,10 @@ export default hopeTheme({
         categoryId:"DIC_kwDOBtJDlM4Cec66",
     },
 
+    icon: {
+      assets: "fontawesome-with-brands",
+    },
+    
     // comment: commentPlugin({
     //   // 选项
     //   provider: "Giscus",
@@ -115,75 +186,6 @@ export default hopeTheme({
 
     components: {
       components: ["Badge", "VPCard"],
-    },
-
-    // 此处开启了很多功能用于演示，你应仅保留用到的功能。
-    mdEnhance: {
-      align: true,
-      attrs: true,
-      codetabs: true,
-      component: true,
-      demo: true,
-      figure: true,
-      imgLazyload: true,
-      imgSize: true,
-      include: true,
-      mark: true,
-      stylize: [
-        {
-          matcher: "Recommended",
-          replacer: ({ tag }) => {
-            if (tag === "em")
-              return {
-                tag: "Badge",
-                attrs: { type: "tip" },
-                content: "Recommended",
-              };
-          },
-        },
-      ],
-      sub: true,
-      sup: true,
-      tabs: true,
-      vPre: true,
-
-      // 在启用之前安装 chart.js
-      // chart: true,
-
-      // insert component easily
-
-      // 在启用之前安装 echarts
-      // echarts: true,
-
-      // 在启用之前安装 flowchart.ts
-      // flowchart: true,
-
-      // gfm requires mathjax-full to provide tex support
-      // gfm: true,
-
-      // 在启用之前安装 katex
-      // katex: true,
-
-      // 在启用之前安装 mathjax-full
-      // mathjax: true,
-
-      // 在启用之前安装 mermaid
-      // mermaid: true,
-
-      // playground: {
-      //   presets: ["ts", "vue"],
-      // },
-
-      // 在启用之前安装 reveal.js
-      // revealJs: {
-      //   plugins: ["highlight", "math", "search", "notes", "zoom"],
-      // },
-
-      // 在启用之前安装 @vue/repl
-      // vuePlayground: true,
-
-      // install sandpack-vue3 before enabling it
-      // sandpack: true,
     },
 
     // 如果你需要 PWA。安装 @vuepress/plugin-pwa 并取消下方注释
