@@ -1,5 +1,6 @@
 ---
 title: CUDA 初学者指南(NVIDIA 官方)
+cover: https://developer-blogs.nvidia.com/zh-cn-blog/wp-content/uploads/sites/2/2025/05/CUDA-Blog-Image-1000x600-1.jpg
 icon: file
 # 这是侧边栏的顺序
 order: 1
@@ -12,7 +13,9 @@ tag:
 sticky: false
 ---
 
-## CUDA 初学者指南(NVIDIA 官方)
+CUDA（Compute Unified Devices Architecture，统一计算架构）是由英伟达（NVIDIA）所推出的一种软硬件集成技术，是该公司对于GPGPU的正式名称。透过这个技术，用户可利用NVIDIA的GPU进行图像处理之外的运算，亦是首次可以利用GPU作为C-编译器的开发环境。
+
+## CUDA 入门必看
 
 [CUDA 入门教程：更简单的介绍 (更新版)](https://developer.nvidia.com/zh-cn/blog/even-easier-introduction-cuda-2/)
 
@@ -24,6 +27,11 @@ sticky: false
 
 [为 NVIDIA CUDA 内核融合提供 Python 中缺失的构建模块](https://developer.nvidia.com/zh-cn/blog/delivering-the-missing-building-blocks-for-nvidia-cuda-kernel-fusion-in-python/)
 
+## 入门书籍
+
+1. [CUDA by Example: An Introduction to General-Purpose GPU Programming](https://www.amazon.com/CUDA-Example-Introduction-General-Purpose-Programming/dp/0131387685/ref=sr_1_1?ie=UTF8&qid=1543267783&sr=8-1&keywords=CUDA+by+Example%3A+An+Introduction+to+General-Purpose+GPU+Programming)
+
+2. [CUDA for Engineers: An Introduction to High-Performance Parallel Computing](https://www.amazon.com/CUDA-Engineers-Introduction-High-Performance-Computing/dp/013417741X/ref=sr_1_1?ie=UTF8&qid=1543268013&sr=8-1&keywords=CUDA+for+Engineers%3A+An+Introduction+to+High-Performance+Parallel+Computing)
 
 ## 进阶教程
 
